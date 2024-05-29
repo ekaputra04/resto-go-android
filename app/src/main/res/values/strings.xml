@@ -12,4 +12,9 @@
     <string name="_081234567890">081234567890</string>
     <string name="belum_memiliki_akun">Belum memiliki akun?</string>
     <string name="_daftar">Daftar</string>
+    <string name="login">Login</string>
+    <string name="sudah_memiliki_akun">Sudah memiliki akun?</string>
+    <string name="nama">Nama</string>
+    <string name="_nama">NAMA</string>
+    <string name="john_doe">John Doe</string>
 </resources>
