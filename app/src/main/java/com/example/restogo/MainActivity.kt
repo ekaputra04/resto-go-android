@@ -2,6 +2,7 @@ package com.example.restogo
 
 import android.app.Activity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.restogo.ui.theme.RestoGoTheme
 
 class MainActivity : Activity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

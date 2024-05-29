@@ -4,6 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="24dp"
     tools:context=".ChoiceRoleActivity">
 
+    <ImageView
+        android:id="@+id/img_choice_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/welcome"
+        android:src="@drawable/welcome"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_choice_selamat_datang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/selamat_datang_di"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/img_choice_welcome"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_choice_resto_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/_resto_go"
+        android:textColor="@color/primary"
+        android:textSize="36sp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_choice_selamat_datang"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/img_choice_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/tv_choice_resto_go" />
+
+    <TextView
+        android:id="@+id/tv_choice_deskripsi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/dirancang_untuk_memberikan_kemudahan_dan_kenyamanan_dalam_melakukan_pemesanan_makanan_secara_mandiri_oleh_pelanggan_aplikasi_ini_berisi_menu_makanan_pada_restoran_rumah_rasa"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/img_choice_line" />
+
+    <Button
+        android:id="@+id/btn_choice_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background_primary"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/masuk"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_choice_deskripsi" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_stroke_primary"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/daftar"
+        android:textColor="@color/primary"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_choice_login" />
 </androidx.constraintlayout.widget.ConstraintLayout>

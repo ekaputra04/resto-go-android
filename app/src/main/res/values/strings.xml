@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">RestoGo</string>
+    <string name="restogo">RestoGo</string>
+    <string name="selamat_datang_di">Selamat Datang di</string>
+    <string name="welcome">Welcome</string>
+    <string name="_resto_go">Resto Go</string>
+    <string name="dirancang_untuk_memberikan_kemudahan_dan_kenyamanan_dalam_melakukan_pemesanan_makanan_secara_mandiri_oleh_pelanggan_aplikasi_ini_berisi_menu_makanan_pada_restoran_rumah_rasa">Dirancang untuk memberikan kemudahan dan kenyamanan dalam melakukan pemesanan makanan secara mandiri oleh pelanggan. Aplikasi ini berisi menu makanan pada restoran Rumah Rasa.</string>
+    <string name="masuk">MASUK</string>
+    <string name="daftar">DAFTAR</string>
+    <string name="silahkan_isi_data_diri_kamu">Silahkan isi data diri kamu!</string>
+    <string name="no_telepon">NO TELEPON</string>
+    <string name="_081234567890">081234567890</string>
+    <string name="belum_memiliki_akun">Belum memiliki akun?</string>
+    <string name="_daftar">Daftar</string>
 </resources>
