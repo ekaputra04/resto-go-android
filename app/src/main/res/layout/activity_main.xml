@@ -1,11 +1,145 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="24dp"
+    android:paddingTop="48dp"
+    tools:context=".MainActivity">
+
+    <!-- user info start -->
+    <ImageView
+        android:id="@+id/img_home_profile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/profile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_home_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/john_doe"
+        android:textColor="@color/primary"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@id/img_home_profile"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/pelanggan"
+        android:textColor="@color/dark_gray"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/img_home_profile"
+        app:layout_constraintTop_toBottomOf="@id/tv_home_name"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="53dp" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/cart"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_home_value_cart"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/background_primary"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/_1"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- user info end -->
+
+    <!-- search start -->
+    <TextView
+        android:id="@+id/tv_home_silahkan_pilih_menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Hello World!" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/hai_john_silahkan_pilih_menu"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/img_home_profile" />
+
+    <EditText
+        android:id="@+id/edt_home_kategori"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_input"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/cari_makanan"
+        android:padding="16dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_home_silahkan_pilih_menu" />
+    <!-- search end -->
+
+    <!-- kategori start -->
+    <TextView
+        android:id="@+id/tv_home_semua_kategori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/semua_kategori"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_home_kategori"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/img_home_right_icon"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/right_icon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_home_kategori" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/lihat_semua"
+        app:layout_constraintRight_toLeftOf="@id/img_home_right_icon"
+        app:layout_constraintTop_toBottomOf="@+id/edt_home_kategori" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_home_semua_kategori"
+        tools:ignore="MissingConstraints"
+        tools:listitem="@layout/item_menu_categories" />
+
+    <!-- kategori end -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

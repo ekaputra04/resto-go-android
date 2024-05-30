@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:outlineAmbientShadowColor="@color/black"
+    android:outlineSpotShadowColor="@color/black"
+    android:padding="5dp">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/kangkung" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/nama_kategori"
+        android:textAlignment="center"
+        android:textSize="14sp"/>
+</LinearLayout>

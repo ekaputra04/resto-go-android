@@ -17,4 +17,11 @@
     <string name="nama">Nama</string>
     <string name="_nama">NAMA</string>
     <string name="john_doe">John Doe</string>
+    <string name="pelanggan">Pelanggan</string>
+    <string name="_1">1</string>
+    <string name="hai_john_silahkan_pilih_menu">Hai John, Silahkan Pilih Menu</string>
+    <string name="cari_makanan">Cari Makanan</string>
+    <string name="semua_kategori">Semua Kategori</string>
+    <string name="lihat_semua">Lihat Semua</string>
+    <string name="nama_kategori">Nama Kategori</string>
 </resources>
