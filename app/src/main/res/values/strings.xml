@@ -24,4 +24,6 @@
     <string name="semua_kategori">Semua Kategori</string>
     <string name="lihat_semua">Lihat Semua</string>
     <string name="nama_kategori">Nama Kategori</string>
+    <string name="pesan_sekarang">PESAN SEKARANG</string>
+    <string name="register">REGISTER</string>
 </resources>

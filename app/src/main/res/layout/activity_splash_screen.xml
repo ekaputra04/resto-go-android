@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,6 +28,20 @@
             android:text="@string/restogo"
             android:textAlignment="center"
             android:textSize="32sp" />
+
+        <Button
+            android:id="@+id/btn_splash_pesan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/background_primary"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="16dp"
+            android:text="@string/pesan_sekarang"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 
 
