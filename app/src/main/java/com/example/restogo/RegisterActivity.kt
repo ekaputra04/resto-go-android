@@ -22,7 +22,7 @@ class RegisterActivity : Activity(), View.OnClickListener {
     private lateinit var btnKirim: Button
     private lateinit var tvLogin: TextView
     private lateinit var requestQueue: RequestQueue
-    val API_URL = Env.apiUrl
+    private val API_URL = Env.apiUrl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +99,8 @@ class RegisterActivity : Activity(), View.OnClickListener {
                         Request.Method.POST, "$API_URL/users", requestBody,
                         { response ->
                             Toast.makeText(this, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
                         },
                         { error ->
                             Log.e("API_ERROR", error.toString())
