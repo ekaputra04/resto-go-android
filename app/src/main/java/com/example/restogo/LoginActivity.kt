@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.Volley
 class LoginActivity : Activity(), View.OnClickListener {
     private lateinit var edtTelepon: EditText
     private lateinit var btnKirim: Button
+    private lateinit var btnBack: ImageView
     private lateinit var tvDaftar: TextView
     private lateinit var requestQueue: RequestQueue
     private val API_URL = Env.apiUrl
@@ -26,6 +28,7 @@ class LoginActivity : Activity(), View.OnClickListener {
         setContentView(R.layout.activity_login)
         initComponents()
         btnKirim.setOnClickListener(this)
+        btnBack.setOnClickListener(this)
         tvDaftar.setOnClickListener(this)
 
         // Inisialisasi RequestQueue
@@ -35,6 +38,7 @@ class LoginActivity : Activity(), View.OnClickListener {
     private fun initComponents() {
         edtTelepon = findViewById(R.id.edt_login_telepon)
         btnKirim = findViewById(R.id.btn_login_kirim)
+        btnBack = findViewById(R.id.img_login_back)
         tvDaftar = findViewById(R.id.tv_login_daftar)
     }
 
@@ -81,6 +85,11 @@ class LoginActivity : Activity(), View.OnClickListener {
                     edtTelepon.error = "No telepon belum terdaftar!"
                 }
             }
+        }
+
+        if (v?.id == R.id.img_login_back) {
+            val intent = Intent(this, ChoiceRoleActivity::class.java)
+            startActivity(intent)
         }
 
         if (v?.id == R.id.tv_login_daftar) {

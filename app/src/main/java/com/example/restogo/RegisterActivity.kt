@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
@@ -20,6 +21,7 @@ class RegisterActivity : Activity(), View.OnClickListener {
     private lateinit var edtNama: EditText
     private lateinit var edtTelepon: EditText
     private lateinit var btnKirim: Button
+    private lateinit var btnBack: ImageView
     private lateinit var tvLogin: TextView
     private lateinit var requestQueue: RequestQueue
     private val API_URL = Env.apiUrl
@@ -30,6 +32,7 @@ class RegisterActivity : Activity(), View.OnClickListener {
         initComponents()
         requestQueue = Volley.newRequestQueue(this)
         btnKirim.setOnClickListener(this)
+        btnBack.setOnClickListener(this)
         tvLogin.setOnClickListener(this)
     }
 
@@ -37,6 +40,7 @@ class RegisterActivity : Activity(), View.OnClickListener {
         edtNama = findViewById(R.id.edt_register_nama)
         edtTelepon = findViewById(R.id.edt_register_telepon)
         btnKirim = findViewById(R.id.btn_register_kirim)
+        btnBack = findViewById(R.id.img_register_back)
         tvLogin = findViewById(R.id.tv_register_login)
     }
 
@@ -119,6 +123,11 @@ class RegisterActivity : Activity(), View.OnClickListener {
                     requestQueue.add(registerRequest)
                 }
             }
+        }
+
+        if (v?.id == R.id.img_register_back) {
+            val intent = Intent(this, ChoiceRoleActivity::class.java)
+            startActivity(intent)
         }
 
         if (v?.id == R.id.tv_register_login) {
