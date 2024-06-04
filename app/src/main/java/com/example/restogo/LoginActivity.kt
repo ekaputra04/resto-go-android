@@ -1,6 +1,7 @@
 package com.example.restogo
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -49,6 +50,14 @@ class LoginActivity : Activity(), View.OnClickListener {
             { response ->
                 Log.d("API_RESPONSE", response.toString())
                 if (response.has("data")) {
+                    val userJson = response.getJSONObject("data")
+                    val user = User(
+                        userJson.getString("_id"),
+                        userJson.getString("name"),
+                        userJson.getString("telephone"),
+                        userJson.getBoolean("isAdmin")
+                    )
+                    saveUserToPreferences(user)
                     callback(true)
                 } else {
                     callback(false)
@@ -65,6 +74,17 @@ class LoginActivity : Activity(), View.OnClickListener {
             }
         )
         requestQueue.add(request)
+    }
+
+    private fun saveUserToPreferences(user: User) {
+        val sharedPref = getSharedPreferences("USER_PREF", Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString("_id", user._id)
+            putString("name", user.name)
+            putString("telephone", user.telephone)
+            putBoolean("isAdmin", user.isAdmin)
+            apply()
+        }
     }
 
     override fun onClick(v: View?) {
