@@ -166,7 +166,7 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.btn_menu_category_add) {
-            val intent = Intent(this, AddMenuCategoriesActivity::class.java)
+            val intent = Intent(this, AddMenuCategoryActivity::class.java)
             startActivity(intent)
             finish()
         }

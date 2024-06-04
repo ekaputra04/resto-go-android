@@ -16,7 +16,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONObject
 
-class AddMenuCategoriesActivity : Activity(), View.OnClickListener {
+class AddMenuCategoryActivity : Activity(), View.OnClickListener {
     private lateinit var edtNama: EditText
     private lateinit var btnSimpan: Button
     private lateinit var btnKembali: ImageView

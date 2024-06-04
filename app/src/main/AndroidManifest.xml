@@ -19,7 +19,7 @@
             android:name=".MenuCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".AddMenuCategoriesActivity"
+            android:name=".AddMenuCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".OrderHistoryActivity"
