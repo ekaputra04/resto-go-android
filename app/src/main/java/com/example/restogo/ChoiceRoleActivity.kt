@@ -31,6 +31,8 @@ class ChoiceRoleActivity : Activity(), View.OnClickListener {
                 startActivity(intent)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
+            } finally {
+                finish()
             }
         }
 
@@ -40,6 +42,8 @@ class ChoiceRoleActivity : Activity(), View.OnClickListener {
                 startActivity(intent)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
+            } finally {
+                finish()
             }
         }
     }

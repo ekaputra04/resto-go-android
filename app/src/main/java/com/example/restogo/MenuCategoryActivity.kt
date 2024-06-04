@@ -3,18 +3,19 @@ package com.example.restogo
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
-import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,9 +23,12 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MenuCategoryActivity : Activity() {
+class MenuCategoryActivity : Activity(), View.OnClickListener {
+    private lateinit var btnTambahKategori: Button
+    private lateinit var btnKembali: ImageView
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MenuCategoryAdapter
+
     private lateinit var requestQueue: RequestQueue
     private val API_URL = Env.apiUrl
     private val categories = mutableListOf<MenuCategory>()
@@ -40,7 +44,9 @@ class MenuCategoryActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_categories)
-        recyclerView = findViewById(R.id.rv_edit_menu_categories)
+        initComponents()
+        btnTambahKategori.setOnClickListener(this)
+        btnKembali.setOnClickListener(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         requestQueue = Volley.newRequestQueue(this)
 
@@ -50,6 +56,12 @@ class MenuCategoryActivity : Activity() {
         recyclerView.adapter = adapter
 
         fetchCategories()
+    }
+
+    private fun initComponents() {
+        btnTambahKategori = findViewById(R.id.btn_menu_category_add)
+        btnKembali=findViewById(R.id.img_menu_categories_back)
+        recyclerView = findViewById(R.id.rv_edit_menu_categories)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -150,6 +162,20 @@ class MenuCategoryActivity : Activity() {
         }
 
         requestQueue.add(request)
+    }
+
+    override fun onClick(v: View?) {
+        if (v?.id == R.id.btn_menu_category_add) {
+            val intent = Intent(this, AddMenuCategoriesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        if (v?.id == R.id.img_menu_categories_back) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
 

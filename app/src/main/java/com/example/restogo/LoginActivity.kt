@@ -100,6 +100,7 @@ class LoginActivity : Activity(), View.OnClickListener {
                 if (exists) {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(this, "No telepon belum terdaftar!", Toast.LENGTH_SHORT).show()
                     edtTelepon.error = "No telepon belum terdaftar!"
@@ -110,11 +111,13 @@ class LoginActivity : Activity(), View.OnClickListener {
         if (v?.id == R.id.img_login_back) {
             val intent = Intent(this, ChoiceRoleActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         if (v?.id == R.id.tv_login_daftar) {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

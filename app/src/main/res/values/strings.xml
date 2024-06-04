@@ -28,4 +28,6 @@
     <string name="register">REGISTER</string>
     <string name="kategori_menu">Kategori Menu</string>
     <string name="tambah_kategori_menu">Tambah Kategori Menu</string>
+    <string name="dessert">Dessert</string>
+    <string name="simpan">Simpan</string>
 </resources>

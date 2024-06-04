@@ -105,6 +105,7 @@ class RegisterActivity : Activity(), View.OnClickListener {
                             Toast.makeText(this, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
+                            finish()
                         },
                         { error ->
                             Log.e("API_ERROR", error.toString())
@@ -128,11 +129,13 @@ class RegisterActivity : Activity(), View.OnClickListener {
         if (v?.id == R.id.img_register_back) {
             val intent = Intent(this, ChoiceRoleActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         if (v?.id == R.id.tv_register_login) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }
