@@ -7,28 +7,20 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.restogo.ui.theme.RestoGoTheme
 
 class MainActivity : Activity(), View.OnClickListener {
     private lateinit var tvNameUser: TextView
     private lateinit var tvRoleUser: TextView
     private lateinit var tvSilahkanPilihMenu: TextView
     private lateinit var imgProfile: ImageView
+    private lateinit var imgCart:ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initComponents()
         imgProfile.setOnClickListener(this)
+        imgCart.setOnClickListener(this)
 
         val user = getUserFromPreferences(this)
         tvNameUser.text = user?.name
@@ -46,6 +38,7 @@ class MainActivity : Activity(), View.OnClickListener {
         tvRoleUser = findViewById(R.id.tv_home_role)
         tvSilahkanPilihMenu = findViewById(R.id.tv_home_silahkan_pilih_menu)
         imgProfile = findViewById(R.id.img_home_profile)
+        imgCart=findViewById(R.id.img_home_cart)
     }
 
     private fun getUserFromPreferences(context: Context): User? {
@@ -61,6 +54,11 @@ class MainActivity : Activity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (v?.id == R.id.img_home_profile) {
             val intent = Intent(this, MenuCategoryActivity::class.java)
+            startActivity(intent)
+        }
+
+        if (v?.id == R.id.img_home_cart) {
+            val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
         }
     }

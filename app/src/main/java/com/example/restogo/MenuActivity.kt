@@ -22,14 +22,14 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MenuCategoryActivity : Activity(), View.OnClickListener {
-    private lateinit var btnTambahKategori: Button
+class MenuActivity : Activity(), View.OnClickListener {
+    private lateinit var btnTambahMenu: Button
     private lateinit var btnKembali: ImageView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MenuCategoryAdapter
+    private lateinit var adapter: MenuAdapter
     private lateinit var requestQueue: com.android.volley.RequestQueue
     private val API_URL = Env.apiUrl
-    private val categories = mutableListOf<MenuCategory>()
+    private val menus = mutableListOf<Menu>()
 
     private val apiService: ApiService by lazy {
         Retrofit.Builder()
@@ -41,47 +41,48 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_menu_categories)
+        setContentView(R.layout.activity_menu)
         initComponents()
-        btnTambahKategori.setOnClickListener(this)
+        btnTambahMenu.setOnClickListener(this)
         btnKembali.setOnClickListener(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        requestQueue = Volley.newRequestQueue(this)
 
-        adapter = MenuCategoryAdapter(categories) { category ->
-            showUpdateDeleteDialog(category)
+        adapter = MenuAdapter(menus) { menu ->
+            showUpdateDeleteDialog(menu)
         }
         recyclerView.adapter = adapter
 
-        fetchCategories()
+        fetchMenus()
     }
 
     override fun onResume() {
         super.onResume()
-        fetchCategories()
+        fetchMenus()
     }
 
     private fun initComponents() {
-        btnTambahKategori = findViewById(R.id.btn_menu_category_add)
-        btnKembali = findViewById(R.id.img_menu_back)
-        recyclerView = findViewById(R.id.rv_edit_menu_categories)
+        btnTambahMenu = findViewById(R.id.btn_menu_activity_add)
+        btnKembali = findViewById(R.id.img_menu_activity_back)
+        recyclerView = findViewById(R.id.rv_menu_activity)
+        requestQueue = Volley.newRequestQueue(this)
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun fetchCategories() {
+    private fun fetchMenus() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = apiService.getMenuCategories()
+                val response = apiService.getMenus()
+                Log.i("infoApk", response.data.toString())
                 withContext(Dispatchers.Main) {
-                    categories.clear()
-                    categories.addAll(response.data)
+                    menus.clear()
+                    menus.addAll(response.data)
                     adapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
-                        this@MenuCategoryActivity,
-                        "Failed to fetch categories",
+                        this@MenuActivity,
+                        "Failed to fetch menus",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -90,35 +91,36 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun showUpdateDeleteDialog(category: MenuCategory) {
-        val options = arrayOf("Update kategori", "Hapus Kategori")
+    private fun showUpdateDeleteDialog(menu: Menu) {
+        val options = arrayOf("Update menu", "Hapus menu")
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Kategori: ${category.name}")
+        builder.setTitle("Menu: ${menu.name}")
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> {
-                        // Handle update category
-                        val intent = Intent(this, UpdateMenuCategoryActivity::class.java).apply {
-                            putExtra(UpdateMenuCategoryActivity.EXTRA_MENU_CATEGORY, category)
+                        // Handle update menu
+                        val intent = Intent(this, UpdateMenuActivity::class.java).apply {
+                            putExtra(UpdateMenuActivity.EXTRA_MENU, menu)
                         }
                         startActivity(intent)
                         finish()
                     }
+
                     1 -> {
-                        // Handle delete category
-                        deleteCategory(category._id) { categoryToRemove ->
-                            if (categoryToRemove != null) {
-                                categories.remove(categoryToRemove)
+                        // Handle delete menu
+                        deleteMenu(menu._id) { menuToRemove ->
+                            if (menuToRemove != null) {
+                                menus.remove(menuToRemove)
                                 adapter.notifyDataSetChanged()
                                 Toast.makeText(
-                                    this@MenuCategoryActivity,
-                                    "Berhasil menghapus kategori '${category.name}'",
+                                    this@MenuActivity,
+                                    "Berhasil menghapus menu '${menu.name}'",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             } else {
                                 Toast.makeText(
-                                    this@MenuCategoryActivity,
-                                    "Gagal menghapus kategori '${category.name}'",
+                                    this@MenuActivity,
+                                    "Gagal menghapus menu '${menu.name}'",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -130,30 +132,30 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
         dialog.show()
     }
 
-    private fun deleteCategory(categoryId: String, callback: (MenuCategory?) -> Unit) {
-        val url = "$API_URL/menu-categories/$categoryId"
+    private fun deleteMenu(menuId: String, callback: (Menu?) -> Unit) {
+        val url = "$API_URL/menus/$menuId"
         val request = object : JsonObjectRequest(
             Method.DELETE,
             url,
             null,
             { response ->
                 Log.d("API_RESPONSE", response.toString())
-                if (response.has("message") && response.getString("message") == "Berhasil menghapus kategori menu!") {
-                    // Penghapusan kategori berhasil
-                    val categoryToRemove = categories.find { it._id == categoryId }
-                    callback(categoryToRemove)
+                if (response.has("message") && response.getString("message") == "Berhasil menghapus menu!") {
+                    // Penghapusan menu berhasil
+                    val menuToRemove = menus.find { it._id == menuId }
+                    callback(menuToRemove)
                 } else {
-                    // Penghapusan kategori gagal
+                    // Penghapusan menu gagal
                     callback(null)
                 }
             },
             { error ->
                 Log.e("API_ERROR", error.toString())
                 if (error.networkResponse?.statusCode == 404) {
-                    // Kategori tidak ditemukan
+                    // Menu tidak ditemukan
                     Toast.makeText(
-                        this@MenuCategoryActivity,
-                        "Kategori tidak ditemukan",
+                        this@MenuActivity,
+                        "Menu tidak ditemukan",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
@@ -173,13 +175,13 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if (v?.id == R.id.btn_menu_category_add) {
-            val intent = Intent(this, AddMenuCategoryActivity::class.java)
-            startActivityForResult(intent, 1) // Start AddMenuCategoryActivity
+        if (v?.id == R.id.btn_menu_activity_add) {
+            val intent = Intent(this, AddMenuActivity::class.java)
+            startActivityForResult(intent, 1)
 
         }
 
-        if (v?.id == R.id.img_menu_back) {
+        if (v?.id == R.id.img_menu_activity_back) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -190,8 +192,7 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 || requestCode == 2) {
             if (resultCode == RESULT_OK) {
-                fetchCategories() // Fetch categories when returning from add or update
-            }
+                fetchMenus()             }
         }
     }
 }

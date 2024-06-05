@@ -12,12 +12,12 @@ class MenuCategoryAdapter(
 ) : RecyclerView.Adapter<MenuCategoryAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTextView: TextView = itemView.findViewById(R.id.tv_item_menu_categories)
+        val nameTextView: TextView = itemView.findViewById(R.id.tv_item_edit_menu_categories)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_menu_categories, parent, false)
+            .inflate(R.layout.item_edit_menu_categories, parent, false)
         return ViewHolder(view)
     }
 

@@ -31,4 +31,8 @@
     <string name="dessert">Dessert</string>
     <string name="simpan">Simpan</string>
     <string name="update_kategori_menu">Update Kategori Menu</string>
+    <string name="daftar_menu">Daftar Menu</string>
+    <string name="tambah_menu">Tambah Menu</string>
+    <string name="nama_menu">Nama Menu</string>
+    <string name="harga">Harga</string>
 </resources>
