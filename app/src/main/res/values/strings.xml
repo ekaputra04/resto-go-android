@@ -35,4 +35,7 @@
     <string name="tambah_menu">Tambah Menu</string>
     <string name="nama_menu">Nama Menu</string>
     <string name="harga">Harga</string>
+    <string name="kategori">Kategori</string>
+    <string name="gambar">Gambar</string>
+    <string name="_10000">10000</string>
 </resources>
