@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
-import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.coroutines.CoroutineScope
@@ -28,8 +27,7 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
     private lateinit var btnKembali: ImageView
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MenuCategoryAdapter
-
-    private lateinit var requestQueue: RequestQueue
+    private lateinit var requestQueue: com.android.volley.RequestQueue
     private val API_URL = Env.apiUrl
     private val categories = mutableListOf<MenuCategory>()
 
@@ -58,9 +56,14 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
         fetchCategories()
     }
 
+    override fun onResume() {
+        super.onResume()
+        fetchCategories()
+    }
+
     private fun initComponents() {
         btnTambahKategori = findViewById(R.id.btn_menu_category_add)
-        btnKembali=findViewById(R.id.img_menu_categories_back)
+        btnKembali = findViewById(R.id.img_menu_categories_back)
         recyclerView = findViewById(R.id.rv_edit_menu_categories)
     }
 
@@ -90,13 +93,17 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
     private fun showUpdateDeleteDialog(category: MenuCategory) {
         val options = arrayOf("Update kategori", "Hapus Kategori")
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Kategori : ${category.name} ${category._id}")
+        builder.setTitle("Kategori: ${category.name}")
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> {
                         // Handle update category
+                        val intent = Intent(this, UpdateMenuCategoryActivity::class.java).apply {
+                            putExtra(UpdateMenuCategoryActivity.EXTRA_MENU_CATEGORY, category)
+                        }
+                        startActivity(intent)
+                        finish()
                     }
-
                     1 -> {
                         // Handle delete category
                         deleteCategory(category._id) { categoryToRemove ->
@@ -157,6 +164,7 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
             @Throws(AuthFailureError::class)
             override fun getHeaders(): Map<String, String> {
                 val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
                 return headers
             }
         }
@@ -167,8 +175,8 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (v?.id == R.id.btn_menu_category_add) {
             val intent = Intent(this, AddMenuCategoryActivity::class.java)
-            startActivity(intent)
-            finish()
+            startActivityForResult(intent, 1) // Start AddMenuCategoryActivity
+
         }
 
         if (v?.id == R.id.img_menu_categories_back) {
@@ -177,5 +185,13 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
             finish()
         }
     }
-}
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 || requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                fetchCategories() // Fetch categories when returning from add or update
+            }
+        }
+    }
+}
