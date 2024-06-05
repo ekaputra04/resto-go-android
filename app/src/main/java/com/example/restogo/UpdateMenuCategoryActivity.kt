@@ -16,15 +16,13 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class UpdateMenuCategoryActivity : Activity(), View.OnClickListener {
     companion object {
         const val EXTRA_MENU_CATEGORY: String = "extra_menu_category"
     }
 
-    private lateinit var edtEditMenu: EditText
+    private lateinit var edtNama: EditText
     private lateinit var btnSimpan: Button
     private lateinit var btnBack: ImageView
     private lateinit var requestQueue: RequestQueue
@@ -44,7 +42,7 @@ class UpdateMenuCategoryActivity : Activity(), View.OnClickListener {
             intent?.getParcelableExtra(EXTRA_MENU_CATEGORY)
         }!!
 
-        edtEditMenu.setText(menuCategory.name)
+        edtNama.setText(menuCategory.name)
         btnSimpan.setOnClickListener(this)
         btnBack.setOnClickListener(this)
     }
@@ -118,7 +116,7 @@ class UpdateMenuCategoryActivity : Activity(), View.OnClickListener {
     }
 
     private fun initComponents() {
-        edtEditMenu = findViewById(R.id.edt_edit_menu_category_nama)
+        edtNama = findViewById(R.id.edt_edit_menu_category_nama)
         btnSimpan = findViewById(R.id.btn_update_menu_category_simpan)
         btnBack = findViewById(R.id.img_update_menu_category_back)
         requestQueue = Volley.newRequestQueue(this)
@@ -126,16 +124,16 @@ class UpdateMenuCategoryActivity : Activity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.btn_update_menu_category_simpan) {
-            val name = edtEditMenu.text.toString().trim()
+            val name = edtNama.text.toString().trim()
 
             if (name.isEmpty()) {
-                edtEditMenu.error = "Nama kategori tidak boleh kosong!"
+                edtNama.error = "Nama kategori tidak boleh kosong!"
             } else {
                 checkMenuCategoryExists(name) { exists ->
                     if (exists) {
                         Toast.makeText(this, "Nama kategori sudah terdaftar!", Toast.LENGTH_SHORT)
                             .show()
-                        edtEditMenu.error = "Nama kategori sudah terdaftar!"
+                        edtNama.error = "Nama kategori sudah terdaftar!"
                     } else {
                         updateCategory(menuCategory._id, name)
                     }

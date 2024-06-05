@@ -26,7 +26,6 @@ class AddMenuActivity : Activity(), View.OnClickListener {
     private lateinit var btnKembali: ImageView
     private lateinit var edtName: EditText
     private lateinit var edtPrice: EditText
-
     //    private lateinit var imgPhoto: ImageView
     private lateinit var btnKirim: Button
     private lateinit var adapter: ArrayAdapter<String>

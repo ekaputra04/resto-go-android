@@ -10,4 +10,4 @@ data class Menu(
     val price: Int,
     val category: String,
     val url_image: String
-):Parcelable
+) : Parcelable

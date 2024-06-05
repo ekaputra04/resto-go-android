@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/tambah_kategori_menu"
+        android:text="@string/tambah_daftar_menu"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"

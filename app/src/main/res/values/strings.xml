@@ -38,4 +38,6 @@
     <string name="kategori">Kategori</string>
     <string name="gambar">Gambar</string>
     <string name="_10000">10000</string>
+    <string name="update_daftar_menu">Update Daftar Menu</string>
+    <string name="tambah_daftar_menu">Tambah Daftar Menu</string>
 </resources>
