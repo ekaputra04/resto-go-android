@@ -68,4 +68,5 @@
     <string name="update_nama_pengguna">Update Nama Pengguna</string>
     <string name="nama_pengguna">Nama Pengguna</string>
     <string name="update_nomor_telepon">Update Nomor Telepon</string>
+    <string name="rp_0">Rp. 0</string>
 </resources>
