@@ -33,6 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_home_role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -46,6 +47,7 @@
         tools:layout_editor_absoluteY="53dp" />
 
     <ImageView
+        android:id="@+id/img_home_cart"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
@@ -138,7 +140,7 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_home_semua_kategori"
         tools:ignore="MissingConstraints"
-        tools:listitem="@layout/item_menu_categories" />
+        tools:listitem="@layout/item_edit_menus" />
 
     <!-- kategori end -->
 

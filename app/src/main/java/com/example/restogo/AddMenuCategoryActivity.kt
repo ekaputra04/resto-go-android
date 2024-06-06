@@ -8,44 +8,38 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONObject
 import org.json.JSONArray
+import org.json.JSONObject
 
-class RegisterActivity : Activity(), View.OnClickListener {
+class AddMenuCategoryActivity : Activity(), View.OnClickListener {
     private lateinit var edtNama: EditText
-    private lateinit var edtTelepon: EditText
-    private lateinit var btnKirim: Button
-    private lateinit var btnBack: ImageView
-    private lateinit var tvLogin: TextView
+    private lateinit var btnSimpan: Button
+    private lateinit var btnKembali: ImageView
     private lateinit var requestQueue: RequestQueue
     private val API_URL = Env.apiUrl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        setContentView(R.layout.activity_add_menu_categories)
         initComponents()
-        requestQueue = Volley.newRequestQueue(this)
-        btnKirim.setOnClickListener(this)
-        btnBack.setOnClickListener(this)
-        tvLogin.setOnClickListener(this)
+        btnSimpan.setOnClickListener(this)
+        btnKembali.setOnClickListener(this)
     }
 
     private fun initComponents() {
-        edtNama = findViewById(R.id.edt_register_nama)
-        edtTelepon = findViewById(R.id.edt_register_telepon)
-        btnKirim = findViewById(R.id.btn_register_kirim)
-        btnBack = findViewById(R.id.img_register_back)
-        tvLogin = findViewById(R.id.tv_register_login)
+        edtNama = findViewById(R.id.edt_add_menu_category_nama)
+        btnSimpan = findViewById(R.id.btn_add_menu_category_simpan)
+        btnKembali = findViewById(R.id.img_add_menu_category_back)
+        requestQueue = Volley.newRequestQueue(this)
     }
 
-    private fun checkUserExists(telepon: String, callback: (Boolean) -> Unit) {
-        val url = "$API_URL/users/telephone/$telepon"
+    private fun checkMenuCategoryExists(name: String, callback: (Boolean) -> Unit) {
+        val url = "$API_URL/menu-categories/name/$name"
         val request = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
@@ -70,40 +64,37 @@ class RegisterActivity : Activity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if (v?.id == R.id.btn_register_kirim) {
-            val nama = edtNama.text.toString().trim()
-            val telepon = edtTelepon.text.toString().trim()
+        if (v?.id == R.id.btn_add_menu_category_simpan) {
+            val name = edtNama.text.toString().trim()
 
-            if (nama.isEmpty()) {
-                edtNama.error = "Masukkan nama!"
+            if (name.isEmpty()) {
+                edtNama.error = "Masukkan nama kategori!"
                 return
             }
 
-            if (telepon.isEmpty()) {
-                edtTelepon.error = "Masukkan no telepon!"
-                return
-            }
-
-            checkUserExists(telepon) { exists ->
+            checkMenuCategoryExists(name) { exists ->
                 if (exists) {
-                    Toast.makeText(this, "No telepon sudah terdaftar!", Toast.LENGTH_SHORT).show()
-                    edtTelepon.error = "No telepon sudah terdaftar!"
+                    Toast.makeText(this, "Nama kategori sudah terdaftar!", Toast.LENGTH_SHORT)
+                        .show()
+                    edtNama.error = "Nama kategori sudah terdaftar!"
                 } else {
                     val requestBody = JSONObject().apply {
                         put("data", JSONArray().apply {
                             put(JSONObject().apply {
-                                put("name", nama)
-                                put("telephone", telepon)
-                                put("isAdmin", false)
+                                put("name", name)
                             })
                         })
                     }
 
                     val registerRequest = JsonObjectRequest(
-                        Request.Method.POST, "$API_URL/users", requestBody,
+                        Request.Method.POST, "$API_URL/menu-categories", requestBody,
                         { response ->
-                            Toast.makeText(this, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, LoginActivity::class.java)
+                            Toast.makeText(
+                                this,
+                                "Berhasil menambah kategori menu!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent = Intent(this, MenuCategoryActivity::class.java)
                             startActivity(intent)
                             finish()
                         },
@@ -118,7 +109,11 @@ class RegisterActivity : Activity(), View.OnClickListener {
                                     "Status Code: $statusCode\nResponse Body: $responseBody"
                                 )
                             }
-                            Toast.makeText(this, "Gagal registrasi!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this,
+                                "Gagal menambah kategori menu!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     )
                     requestQueue.add(registerRequest)
@@ -126,14 +121,8 @@ class RegisterActivity : Activity(), View.OnClickListener {
             }
         }
 
-        if (v?.id == R.id.img_register_back) {
-            val intent = Intent(this, ChoiceRoleActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        if (v?.id == R.id.tv_register_login) {
-            val intent = Intent(this, LoginActivity::class.java)
+        if (v?.id == R.id.img_add_menu_category_back) {
+            val intent = Intent(this, MenuCategoryActivity::class.java)
             startActivity(intent)
             finish()
         }
