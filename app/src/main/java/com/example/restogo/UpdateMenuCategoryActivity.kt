@@ -60,18 +60,14 @@ class UpdateMenuCategoryActivity : Activity(), View.OnClickListener {
             { response ->
                 Log.d("API_RESPONSE", response.toString())
                 if (response.has("message") && response.getString("message") == "Berhasil mengedit kategori menu!") {
-                    // Update category successfully
-                    val updatedCategory = MenuCategory(
-                        _id = categoryId,
-                        name = response.getJSONObject("data").getString("name")
-                    )
-                    val intent = Intent().apply {
-                        putExtra(EXTRA_MENU_CATEGORY, updatedCategory)
-                    }
-                    setResult(RESULT_OK, intent)
+                    Toast.makeText(this, "Berhasil mengupdate kategori menu!", Toast.LENGTH_SHORT)
+                        .show()
+                    val intent = Intent(this, MenuCategoryActivity::class.java)
+                    startActivity(intent)
                     finish()
                 } else {
-                    Toast.makeText(this, "Gagal mengupdate kategori!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Gagal mengupdate kategori menu!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             },
             { error ->

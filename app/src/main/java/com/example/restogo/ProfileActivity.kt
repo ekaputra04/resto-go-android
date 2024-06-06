@@ -69,7 +69,9 @@ class ProfileActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.btn_profile_detail_name) {
-
+            val intent = Intent(this, UpdateNameUserActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_telephone) {
@@ -83,7 +85,6 @@ class ProfileActivity : Activity(), View.OnClickListener {
         if (v?.id == R.id.btn_profile_detail_kategori_menu) {
             val intent = Intent(this, MenuCategoryActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_menu) {

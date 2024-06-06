@@ -63,4 +63,8 @@
     <string name="daftar_kategori_menu">Daftar Kategori Menu</string>
     <string name="daftar_extra_menu">Daftar Extra Menu</string>
     <string name="daftar_pelanggan">Daftar Pelanggan</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="update_nama_pengguna">Update Nama Pengguna</string>
+    <string name="nama_pengguna">Nama Pengguna</string>
 </resources>
