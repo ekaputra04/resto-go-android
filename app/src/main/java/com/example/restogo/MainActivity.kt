@@ -25,6 +25,7 @@ class MainActivity : Activity(), View.OnClickListener {
         val user = getUserFromPreferences(this)
         tvNameUser.text = user?.name
         tvSilahkanPilihMenu.text = "Hai ${user?.name}, Silahkan Pilih Menu"
+
         if (user?.isAdmin == true) {
             tvRoleUser.text = "Admin"
         } else {
