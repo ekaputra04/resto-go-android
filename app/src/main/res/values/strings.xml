@@ -67,4 +67,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="update_nama_pengguna">Update Nama Pengguna</string>
     <string name="nama_pengguna">Nama Pengguna</string>
+    <string name="update_nomor_telepon">Update Nomor Telepon</string>
 </resources>

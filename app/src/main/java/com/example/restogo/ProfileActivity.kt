@@ -75,7 +75,9 @@ class ProfileActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.btn_profile_detail_telephone) {
-
+            val intent = Intent(this, UpdateTelephoneUserActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_pesanan_saya) {
