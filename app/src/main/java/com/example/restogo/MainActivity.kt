@@ -13,7 +13,7 @@ class MainActivity : Activity(), View.OnClickListener {
     private lateinit var tvRoleUser: TextView
     private lateinit var tvSilahkanPilihMenu: TextView
     private lateinit var imgProfile: ImageView
-    private lateinit var imgCart:ImageView
+    private lateinit var imgCart: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class MainActivity : Activity(), View.OnClickListener {
         tvRoleUser = findViewById(R.id.tv_home_role)
         tvSilahkanPilihMenu = findViewById(R.id.tv_home_silahkan_pilih_menu)
         imgProfile = findViewById(R.id.img_home_profile)
-        imgCart=findViewById(R.id.img_home_cart)
+        imgCart = findViewById(R.id.img_home_cart)
     }
 
     private fun getUserFromPreferences(context: Context): User? {
@@ -53,14 +53,13 @@ class MainActivity : Activity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.img_home_profile) {
-            val intent = Intent(this, MenuCategoryActivity::class.java)
+            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
 
         if (v?.id == R.id.img_home_cart) {
-            val intent = Intent(this, MenuActivity::class.java)
+            val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
         }
     }
-
 }
