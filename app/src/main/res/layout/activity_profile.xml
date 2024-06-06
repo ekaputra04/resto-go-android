@@ -4,6 +4,184 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="32dp">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/circle_background_2"
+            android:scaleType="centerInside"
+            android:src="@drawable/back_black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25sp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Profil"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="86dp"
+            tools:layout_editor_absoluteY="43dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/groupContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="103dp">
+
+        <ImageView
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:src="@drawable/profile"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="28dp"
+            tools:layout_editor_absoluteY="103dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/resandy_prisadana"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="125dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="24sp"
+            android:fontFamily="@font/poppins_light"
+            android:text="@string/no_telepon_pengguna"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="155dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="264dp"
+        android:background="@drawable/square_profile_information"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="5dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icon_profile"
+            tools:layout_editor_absoluteX="-2dp"
+            tools:layout_editor_absoluteY="-2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35sp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="Nama Lengkap"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="61dp"
+            tools:layout_editor_absoluteY="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35sp"
+            android:fontFamily="@font/poppins_light"
+            android:text="Resandy Prisadana"
+            android:textColor="#6B6E82"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="26dp" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="15dp"
+            android:src="@drawable/panah_kanan_oranye"
+            tools:layout_editor_absoluteX="343dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icon_no_telepon"
+            tools:layout_editor_absoluteX="-3dp"
+            tools:layout_editor_absoluteY="73dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35sp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="No Telepon"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="61dp"
+            tools:layout_editor_absoluteY="73dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35sp"
+            android:fontFamily="@font/poppins_light"
+            android:text="085239164972"
+            android:textColor="#6B6E82"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="97dp" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="15dp"
+            android:src="@drawable/panah_kanan_oranye"
+            tools:layout_editor_absoluteX="341dp"
+            tools:layout_editor_absoluteY="82dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icon_pesanan_saya"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="139dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35sp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="Pesanan Saya"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="63dp"
+            tools:layout_editor_absoluteY="147dp" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="15dp"
+            android:src="@drawable/panah_kanan_oranye"
+            tools:layout_editor_absoluteX="340dp"
+            tools:layout_editor_absoluteY="158dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

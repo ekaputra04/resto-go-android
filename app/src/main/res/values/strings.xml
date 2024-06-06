@@ -24,4 +24,18 @@
     <string name="semua_kategori">Semua Kategori</string>
     <string name="lihat_semua">Lihat Semua</string>
     <string name="nama_kategori">Nama Kategori</string>
+    <string name="keranjang">Keranjang</string>
+    <string name="nasi_tempe_bakar">Nasi Tempe Bakar</string>
+    <string name="tambahan">Tambahan</string>
+    <string name="telur">Telur</string>
+    <string name="rp_28000">Rp.28000</string>
+    <string name="_2">2</string>
+    <string name="tahutempelovers">TahuTempeLovers</string>
+    <string name="punya_kupon">Punya Kupon?</string>
+    <string name="apply">Apply</string>
+    <string name="total">Total :</string>
+    <string name="rp_40_000">Rp 40.000</string>
+    <string name="pesan">PESAN</string>
+    <string name="resandy_prisadana">Resandy Prisadana</string>
+    <string name="no_telepon_pengguna">085239164972</string>
 </resources>
