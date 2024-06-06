@@ -7,7 +7,7 @@
     android:background="@color/dark">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerContainer"
+        android:id="@+id/profile_header_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -39,7 +39,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/groupContainer"
+        android:id="@+id/profile_group_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"

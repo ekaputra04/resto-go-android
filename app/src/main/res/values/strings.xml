@@ -24,7 +24,6 @@
     <string name="semua_kategori">Semua Kategori</string>
     <string name="lihat_semua">Lihat Semua</string>
     <string name="nama_kategori">Nama Kategori</string>
-<<<<<<< HEAD
     <string name="keranjang">Keranjang</string>
     <string name="nasi_tempe_bakar">Nasi Tempe Bakar</string>
     <string name="tambahan">Tambahan</string>
@@ -39,7 +38,6 @@
     <string name="pesan">PESAN</string>
     <string name="resandy_prisadana">Resandy Prisadana</string>
     <string name="no_telepon_pengguna">085239164972</string>
-=======
     <string name="pesan_sekarang">PESAN SEKARANG</string>
     <string name="register">REGISTER</string>
     <string name="kategori_menu">Kategori Menu</string>
@@ -56,5 +54,13 @@
     <string name="_10000">10000</string>
     <string name="update_daftar_menu">Update Daftar Menu</string>
     <string name="tambah_daftar_menu">Tambah Daftar Menu</string>
->>>>>>> fc9534400b1c9c22a1f579431daab41ceeb841d1
+    <string name="profil">Profil</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="_085239164972">085239164972</string>
+    <string name="pesanan_saya">Pesanan Saya</string>
+    <string name="extra_menu">Extra Menu</string>
+    <string name="daftar_kategori_menu">Daftar Kategori Menu</string>
+    <string name="daftar_extra_menu">Daftar Extra Menu</string>
+    <string name="daftar_pelanggan">Daftar Pelanggan</string>
 </resources>
