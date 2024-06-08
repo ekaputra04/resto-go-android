@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +16,7 @@
             android:id="@+id/btn_profile_back"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/circle_background_2"
             android:scaleType="centerInside"
             android:src="@drawable/back_black"

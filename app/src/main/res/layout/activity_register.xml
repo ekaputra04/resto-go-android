@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_white_redius_top"
         android:minHeight="500dp"
-        android:padding="24dp"
+        android:padding="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_register_daftar"
         app:layout_constraintVertical_bias="1.0"
