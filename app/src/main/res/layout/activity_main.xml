@@ -117,47 +117,66 @@
     <!-- kategori start -->
     <TextView
         android:id="@+id/tv_home_semua_kategori"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginHorizontal="8dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="@string/semua_kategori"
+        android:text="@string/kategori_menu"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_home_kategori"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/img_home_right_icon"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/right_icon"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_home_kategori" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="5dp"
-        android:text="@string/lihat_semua"
-        app:layout_constraintRight_toLeftOf="@id/img_home_right_icon"
-        app:layout_constraintTop_toBottomOf="@+id/edt_home_kategori" />
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_menu_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_home_semua_kategori"
-        tools:ignore="MissingConstraints"
-        tools:listitem="@layout/item_edit_menus" />
+        tools:listitem="@layout/item_home_menu_categories" />
 
     <!-- kategori end -->
+
+    <!-- menu start -->
+    <TextView
+        android:id="@+id/tv_home_semua_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/daftar_menu"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_home_menu_categories" />
+
+    <ImageView
+        android:id="@+id/img_home_detail_menus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/right_icon"
+        app:layout_constraintBottom_toBottomOf="@id/tv_home_semua_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_home_semua_menu" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/lihat_semua"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_home_semua_menu"
+        app:layout_constraintEnd_toStartOf="@+id/img_home_detail_menus"
+        app:layout_constraintTop_toTopOf="@+id/tv_home_semua_menu" />
+
+    <!-- menu end -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
