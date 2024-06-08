@@ -72,4 +72,10 @@
     <string name="cari">Cari</string>
     <string name="nasi_dengan_sambal_dan_tempe_yang_dibakar">Nasi dengan sambal dan tempe yang dibakar</string>
     <string name="detail_menu">Detail Menu</string>
+    <string name="detail">Detail</string>
+    <string name="nasi_5000">Nasi (5000)</string>
+    <string name="telur_4000">Telur (4000)</string>
+    <string name="sambal_3000">Sambal (3000)</string>
+    <string name="lalapan_3000">Lalapan (3000)</string>
+    <string name="tambah_ke_keranjang">Tambah Ke Keranjang</string>
 </resources>
