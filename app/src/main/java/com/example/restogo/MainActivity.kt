@@ -84,10 +84,12 @@ class MainActivity : Activity(), View.OnClickListener {
 
             R.id.tv_home_detail_menus -> {
                 updateUIMenus(menus)
+                adapterMenuCategories.resetSelection()
             }
 
             R.id.img_home_detail_menus -> {
                 updateUIMenus(menus)
+                adapterMenuCategories.resetSelection()
             }
 
             R.id.btn_home_search -> {
@@ -124,7 +126,6 @@ class MainActivity : Activity(), View.OnClickListener {
         requestQueue = Volley.newRequestQueue(this)
 
         adapterMenuCategories = HomeMenuCategoriesAdapter(categories) { category ->
-            Toast.makeText(this, "Berhasil klik: ${category.name}", Toast.LENGTH_SHORT).show()
             getMenusFromCategories(category._id)
         }
 
