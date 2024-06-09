@@ -50,4 +50,12 @@ class HomeMenuCategoriesAdapter(
     }
 
     override fun getItemCount(): Int = categories.size
+
+    fun resetSelection() {
+        val previousPosition = selectedPosition
+        selectedPosition = -1
+        if (previousPosition >= 0) {
+            notifyItemChanged(previousPosition)
+        }
+    }
 }

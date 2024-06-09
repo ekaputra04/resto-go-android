@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -28,6 +30,8 @@ class MainActivity : Activity(), View.OnClickListener {
     private lateinit var imgProfile: ImageView
     private lateinit var imgCart: ImageView
     private lateinit var imgShowAllMenus: ImageView
+    private lateinit var edtSearchMenu: EditText
+    private lateinit var btnSearchMenu: Button
     private lateinit var recycleViewMenuCategories: RecyclerView
     private lateinit var recycleViewMenus: RecyclerView
     private lateinit var adapterMenuCategories: HomeMenuCategoriesAdapter
@@ -37,6 +41,7 @@ class MainActivity : Activity(), View.OnClickListener {
     private val categories = mutableListOf<MenuCategory>()
     private val menus = mutableListOf<Menu>()
     private var menusFromCategories = mutableListOf<Menu>()
+    private var menusFromName = mutableListOf<Menu>()
 
     private val apiService: ApiService by lazy {
         Retrofit.Builder()
@@ -55,25 +60,54 @@ class MainActivity : Activity(), View.OnClickListener {
         imgCart.setOnClickListener(this)
         tvShowAllMenus.setOnClickListener(this)
         imgShowAllMenus.setOnClickListener(this)
+        btnSearchMenu.setOnClickListener(this)
 
         updateUIUser()
         updateUIMenuCategories()
-        updateUIMenus(menus)  // Pass the full menu list initially
+        updateUIMenus(menus)
 
         fetchCategories()
         fetchMenus()
     }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.img_home_profile -> {
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.img_home_cart -> {
+                val intent = Intent(this, CartActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.tv_home_detail_menus -> {
+                updateUIMenus(menus)
+            }
+
+            R.id.img_home_detail_menus -> {
+                updateUIMenus(menus)
+            }
+
+            R.id.btn_home_search -> {
+                searchMenuFromName()
+            }
+        }
+    }
+
     private fun initComponents() {
         tvNameUser = findViewById(R.id.tv_home_name)
         tvRoleUser = findViewById(R.id.tv_home_role)
-        tvShowAllMenus=findViewById(R.id.tv_home_detail_menus)
+        tvShowAllMenus = findViewById(R.id.tv_home_detail_menus)
         tvSilahkanPilihMenu = findViewById(R.id.tv_home_silahkan_pilih_menu)
         imgProfile = findViewById(R.id.img_home_profile)
         imgCart = findViewById(R.id.img_home_cart)
-        imgShowAllMenus=findViewById(R.id.img_home_detail_menus)
+        imgShowAllMenus = findViewById(R.id.img_home_detail_menus)
+        edtSearchMenu = findViewById(R.id.edt_home_search_menu)
+        btnSearchMenu = findViewById(R.id.btn_home_search)
         recycleViewMenuCategories = findViewById(R.id.rv_home_menu_categories)
-        recycleViewMenus = findViewById(R.id.rv_home_menus) // Ensure you have this RecyclerView in your layout
+        recycleViewMenus = findViewById(R.id.rv_home_menus)
     }
 
     @SuppressLint("SetTextI18n")
@@ -123,28 +157,6 @@ class MainActivity : Activity(), View.OnClickListener {
             User(_id, name, telephone, isAdmin)
         } else {
             null
-        }
-    }
-
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.img_home_profile -> {
-                val intent = Intent(this, ProfileActivity::class.java)
-                startActivity(intent)
-            }
-
-            R.id.img_home_cart -> {
-                val intent = Intent(this, CartActivity::class.java)
-                startActivity(intent)
-            }
-
-            R.id.tv_home_detail_menus->{
-                updateUIMenus(menus)
-            }
-
-            R.id.img_home_detail_menus->{
-                updateUIMenus(menus)
-            }
         }
     }
 
@@ -213,4 +225,35 @@ class MainActivity : Activity(), View.OnClickListener {
             }
         }
     }
+
+    private fun searchMenuFromName() {
+        val name = edtSearchMenu.text.toString().trim()
+        if (name.isEmpty()) {
+            Toast.makeText(this, "Silahkan masukkan nama menu!", Toast.LENGTH_SHORT).show()
+        } else {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val filteredMenus = menus.filter { it.name.contains(name, ignoreCase = true) }
+                    withContext(Dispatchers.Main) {
+                        menusFromName.clear()
+                        menusFromName.addAll(filteredMenus)
+                        updateUIMenus(menusFromName)
+
+                        // Reset kategori saat pencarian dilakukan
+                        adapterMenuCategories.resetSelection()
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Failed to filter menus",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+
 }
