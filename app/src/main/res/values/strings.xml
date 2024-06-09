@@ -79,4 +79,6 @@
     <string name="lalapan_3000">Lalapan (3000)</string>
     <string name="tambah_ke_keranjang">Tambah Ke Keranjang</string>
     <string name="tambah_extra_menu">Tambah Extra Menu</string>
+    <string name="nama_extra_menu">Nama Extra Menu</string>
+    <string name="lalapan">Lalapan</string>
 </resources>

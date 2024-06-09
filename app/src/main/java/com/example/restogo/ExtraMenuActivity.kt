@@ -13,7 +13,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
+import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,12 +61,17 @@ class ExtraMenuActivity : Activity(), View.OnClickListener {
         btnTambahExtraMenu = findViewById(R.id.btn_extra_menu_activity_add)
         btnKembali = findViewById(R.id.img_extra_menu_activity_back)
         recyclerView = findViewById(R.id.rv_extra_menu_activity)
-
+        requestQueue = Volley.newRequestQueue(this) // Inisialisasi requestQueue
     }
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.btn_extra_menu_activity_add) {
             val intent = Intent(this, AddExtraMenusActivity::class.java)
+            startActivity(intent)
+        }
+
+        if (v?.id == R.id.img_extra_menu_activity_back) {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
@@ -137,7 +144,7 @@ class ExtraMenuActivity : Activity(), View.OnClickListener {
     private fun deleteExtraMenu(extraMenuId: String, callback: (ExtraMenu?) -> Unit) {
         val url = "$API_URL/extra-menus/$extraMenuId"
         val request = object : JsonObjectRequest(
-            Method.DELETE,
+            Request.Method.DELETE,
             url,
             null,
             { response ->
@@ -163,6 +170,7 @@ class ExtraMenuActivity : Activity(), View.OnClickListener {
                 } else {
                     Toast.makeText(this, "Terjadi kesalahan!", Toast.LENGTH_SHORT).show()
                 }
+                callback(null) // Pastikan callback dipanggil dengan nilai null saat terjadi error
             }
         ) {
             @Throws(AuthFailureError::class)
