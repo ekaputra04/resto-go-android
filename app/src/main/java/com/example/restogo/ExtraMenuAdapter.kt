@@ -5,8 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.restogo.model.ExtraMenu
 
-class ExtraMenuAdapter(private val extraMenuList: List<ExtraMenu>, private val onItemClick: (ExtraMenu) -> Unit) : RecyclerView.Adapter<ExtraMenuAdapter.MenuViewHolder>() {
+class ExtraMenuAdapter(
+    private val extraMenuList: List<ExtraMenu>,
+    private val onItemClick: (ExtraMenu) -> Unit
+) : RecyclerView.Adapter<ExtraMenuAdapter.MenuViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_edit_menus, parent, false)
@@ -34,7 +38,10 @@ class ExtraMenuAdapter(private val extraMenuList: List<ExtraMenu>, private val o
         }
 
         override fun onClick(v: View?) {
-            onItemClick(extraMenuList[adapterPosition])
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                onItemClick(extraMenuList[position])
+            }
         }
     }
 }

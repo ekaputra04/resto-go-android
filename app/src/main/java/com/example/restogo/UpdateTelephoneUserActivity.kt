@@ -15,6 +15,7 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.restogo.model.User
 import org.json.JSONObject
 
 class UpdateTelephoneUserActivity : Activity(), View.OnClickListener {

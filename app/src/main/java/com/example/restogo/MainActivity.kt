@@ -15,6 +15,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.Volley
+import com.example.restogo.model.ApiService
+import com.example.restogo.model.Menu
+import com.example.restogo.model.MenuCategory
+import com.example.restogo.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -139,8 +143,9 @@ class MainActivity : Activity(), View.OnClickListener {
 
         // Inisialisasi adapterMenus
         adapterMenus = HomeMenuAdapter(filteredMenus) { menu ->
-            val intent = Intent(this, DetailMenuActivity::class.java)
-            intent.putExtra("menu_id", menu._id) // Assuming `menu` has an `id` property
+            val intent = Intent(this, DetailMenuActivity::class.java).apply {
+                putExtra(DetailMenuActivity.EXTRA_MENU, menu)
+            }
             startActivity(intent)
         }
 

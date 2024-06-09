@@ -3,11 +3,11 @@ package com.example.restogo
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.restogo.model.User
 
 class ProfileActivity : Activity(), View.OnClickListener {
     private lateinit var btnBack: ImageView

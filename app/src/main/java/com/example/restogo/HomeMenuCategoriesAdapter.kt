@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.restogo.model.MenuCategory
 
 class HomeMenuCategoriesAdapter(
     private val categories: List<MenuCategory>,

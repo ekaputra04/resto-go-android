@@ -1,4 +1,4 @@
-package com.example.restogo
+package com.example.restogo.model
 
 data class User(
     var _id: String,
