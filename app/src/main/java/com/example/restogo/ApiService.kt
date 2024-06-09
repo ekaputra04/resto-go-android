@@ -8,4 +8,7 @@ interface ApiService {
 
     @GET("menus")
     suspend fun getMenus(): MenuResponse
+
+    @GET("extra-menus")
+    suspend fun getExtraMenus(): ExtraMenuResponse
 }

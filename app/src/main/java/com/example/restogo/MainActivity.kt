@@ -254,6 +254,4 @@ class MainActivity : Activity(), View.OnClickListener {
             }
         }
     }
-
-
 }

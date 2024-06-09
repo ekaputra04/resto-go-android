@@ -87,6 +87,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
         if (v?.id == R.id.btn_profile_detail_kategori_menu) {
             val intent = Intent(this, MenuCategoryActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_menu) {
@@ -96,7 +97,9 @@ class ProfileActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.btn_profile_detail_extra_menu) {
-
+            val intent = Intent(this, ExtraMenuActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_pelanggan) {
