@@ -108,8 +108,8 @@ class ExtraMenuActivity : Activity(), View.OnClickListener {
                 when (which) {
                     0 -> {
                         // Handle update menu
-                        val intent = Intent(this, UpdateMenuActivity::class.java).apply {
-                            putExtra(UpdateMenuActivity.EXTRA_MENU, extraMenu)
+                        val intent = Intent(this, UpdateExtraMenusActivity::class.java).apply {
+                            putExtra(UpdateExtraMenusActivity.EXTRA_MENU, extraMenu)
                         }
                         startActivity(intent)
                         finish()

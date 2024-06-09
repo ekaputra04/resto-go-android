@@ -27,7 +27,6 @@ class UpdateMenuCategoryActivity : Activity(), View.OnClickListener {
     private lateinit var btnBack: ImageView
     private lateinit var requestQueue: RequestQueue
     private val API_URL = Env.apiUrl
-
     private lateinit var menuCategory: MenuCategory
 
     override fun onCreate(savedInstanceState: Bundle?) {
