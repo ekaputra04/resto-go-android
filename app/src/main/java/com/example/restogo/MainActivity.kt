@@ -23,9 +23,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : Activity(), View.OnClickListener {
     private lateinit var tvNameUser: TextView
     private lateinit var tvRoleUser: TextView
+    private lateinit var tvShowAllMenus: TextView
     private lateinit var tvSilahkanPilihMenu: TextView
     private lateinit var imgProfile: ImageView
     private lateinit var imgCart: ImageView
+    private lateinit var imgShowAllMenus: ImageView
     private lateinit var recycleViewMenuCategories: RecyclerView
     private lateinit var recycleViewMenus: RecyclerView
     private lateinit var adapterMenuCategories: HomeMenuCategoriesAdapter
@@ -34,6 +36,7 @@ class MainActivity : Activity(), View.OnClickListener {
     private val API_URL = Env.apiUrl
     private val categories = mutableListOf<MenuCategory>()
     private val menus = mutableListOf<Menu>()
+    private var menusFromCategories = mutableListOf<Menu>()
 
     private val apiService: ApiService by lazy {
         Retrofit.Builder()
@@ -50,10 +53,12 @@ class MainActivity : Activity(), View.OnClickListener {
         initComponents()
         imgProfile.setOnClickListener(this)
         imgCart.setOnClickListener(this)
+        tvShowAllMenus.setOnClickListener(this)
+        imgShowAllMenus.setOnClickListener(this)
 
         updateUIUser()
         updateUIMenuCategories()
-        updateUIMenus()
+        updateUIMenus(menus)  // Pass the full menu list initially
 
         fetchCategories()
         fetchMenus()
@@ -62,13 +67,16 @@ class MainActivity : Activity(), View.OnClickListener {
     private fun initComponents() {
         tvNameUser = findViewById(R.id.tv_home_name)
         tvRoleUser = findViewById(R.id.tv_home_role)
+        tvShowAllMenus=findViewById(R.id.tv_home_detail_menus)
         tvSilahkanPilihMenu = findViewById(R.id.tv_home_silahkan_pilih_menu)
         imgProfile = findViewById(R.id.img_home_profile)
         imgCart = findViewById(R.id.img_home_cart)
+        imgShowAllMenus=findViewById(R.id.img_home_detail_menus)
         recycleViewMenuCategories = findViewById(R.id.rv_home_menu_categories)
         recycleViewMenus = findViewById(R.id.rv_home_menus) // Ensure you have this RecyclerView in your layout
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateUIUser() {
         val user = getUserFromPreferences(this)
         tvNameUser.text = user?.name ?: "User"
@@ -83,32 +91,19 @@ class MainActivity : Activity(), View.OnClickListener {
 
         adapterMenuCategories = HomeMenuCategoriesAdapter(categories) { category ->
             Toast.makeText(this, "Berhasil klik: ${category.name}", Toast.LENGTH_SHORT).show()
+            getMenusFromCategories(category._id)
         }
 
         recycleViewMenuCategories.adapter = adapterMenuCategories
     }
 
-//    private fun updateUIMenus() {
-//        recycleViewMenus.layoutManager =
-//            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//        requestQueue = Volley.newRequestQueue(this)
-//
-//        adapterMenus = HomeMenuAdapter(menus) { menu ->
-//            val intent = Intent(this, DetailMenuActivity::class.java)
-//            intent.putExtra("menu_id", menu._id) // Assuming `menu` has an `id` property
-//            startActivity(intent)
-//        }
-//
-//        recycleViewMenus.adapter = adapterMenus
-//    }
-
-    private fun updateUIMenus() {
+    private fun updateUIMenus(filteredMenus: List<Menu>) {
         // Menggunakan GridLayoutManager dengan 2 kolom
         val layoutManager = GridLayoutManager(this, 2)
         recycleViewMenus.layoutManager = layoutManager
 
         // Inisialisasi adapterMenus
-        adapterMenus = HomeMenuAdapter(menus) { menu ->
+        adapterMenus = HomeMenuAdapter(filteredMenus) { menu ->
             val intent = Intent(this, DetailMenuActivity::class.java)
             intent.putExtra("menu_id", menu._id) // Assuming `menu` has an `id` property
             startActivity(intent)
@@ -141,6 +136,14 @@ class MainActivity : Activity(), View.OnClickListener {
             R.id.img_home_cart -> {
                 val intent = Intent(this, CartActivity::class.java)
                 startActivity(intent)
+            }
+
+            R.id.tv_home_detail_menus->{
+                updateUIMenus(menus)
+            }
+
+            R.id.img_home_detail_menus->{
+                updateUIMenus(menus)
             }
         }
     }
@@ -182,6 +185,28 @@ class MainActivity : Activity(), View.OnClickListener {
                     Toast.makeText(
                         this@MainActivity,
                         "Failed to fetch menus",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getMenusFromCategories(category: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val filteredMenus = menus.filter { it.category == category }
+                withContext(Dispatchers.Main) {
+                    menusFromCategories.clear()
+                    menusFromCategories.addAll(filteredMenus)
+                    updateUIMenus(menusFromCategories)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Failed to filter menus",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
