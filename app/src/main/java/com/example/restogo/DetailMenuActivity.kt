@@ -2,6 +2,7 @@ package com.example.restogo
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -15,14 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.Volley
 import com.example.restogo.model.ApiService
+import com.example.restogo.model.DetailMenu
 import com.example.restogo.model.ExtraMenu
 import com.example.restogo.model.Menu
+import com.example.restogo.model.OrderObject
+import com.example.restogo.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.Date
 
 class DetailMenuActivity : Activity(), View.OnClickListener {
     private lateinit var imgPhoto: ImageView
@@ -40,8 +45,10 @@ class DetailMenuActivity : Activity(), View.OnClickListener {
     private lateinit var requestQueue: com.android.volley.RequestQueue
     private val API_URL = Env.apiUrl
     private val extraMenus = mutableListOf<ExtraMenu>()
+    private var selectedMenuPrice: Int = 0
+    private var selectedExtraMenu: ExtraMenu? = null
     private var quantity: Int = 0
-    private var subTotal: Int = 0
+    private var subTotalMenu: Float = 0.0f
 
     private val apiService: ApiService by lazy {
         Retrofit.Builder()
@@ -71,11 +78,16 @@ class DetailMenuActivity : Activity(), View.OnClickListener {
         tvName.setText(menu.name)
         tvPrice.setText("Rp.${menu.price}")
         tvQuantity.setText(quantity.toString())
-        tvSubTotal.setText("Rp.${subTotal}")
-
+        tvSubTotal.setText("Rp.${subTotalMenu}")
         rvExtraMenus.layoutManager = LinearLayoutManager(this)
         adapter = RadioButtonAdapter(extraMenus) { selectedOption ->
-            Toast.makeText(this, "Selected: $selectedOption", Toast.LENGTH_SHORT).show()
+            selectedMenuPrice = selectedOption.price
+            selectedExtraMenu = selectedOption
+
+            if (quantity == 0) subTotalMenu = 0.0f
+            else subTotalMenu = ((menu.price * quantity) + selectedMenuPrice).toFloat()
+
+            tvSubTotal.setText("Rp.${subTotalMenu}")
         }
         rvExtraMenus.adapter = adapter
 
@@ -117,7 +129,20 @@ class DetailMenuActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.btn_detail_menu_kirim) {
+            if (quantity != 0) {
+//                logika untuk menyimpan semua data order di sini pada variabel global OrderObject
+                val user = getUserFromPreferences(this)
+                val newDetailMenu = DetailMenu(menu, quantity, selectedExtraMenu, subTotalMenu)
 
+                OrderObject.userId = user?._id!!
+                OrderObject.details = OrderObject.details + newDetailMenu
+                OrderObject.totalPrice += subTotalMenu
+                OrderObject.date = Date()
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 
@@ -147,20 +172,39 @@ class DetailMenuActivity : Activity(), View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private fun updateQuantityPlus() {
         quantity += 1
-        subTotal = (menu.price * quantity)
+        subTotalMenu = ((menu.price * quantity) + selectedMenuPrice).toFloat()
         tvQuantity.setText(quantity.toString())
-        tvSubTotal.setText("Rp.${subTotal}")
+        tvSubTotal.setText("Rp.${subTotalMenu}")
     }
 
     @SuppressLint("SetTextI18n")
     private fun updateQuantityMinus() {
         if (quantity == 0) {
             quantity = 0
-        } else{
+        } else {
             quantity -= 1
         }
-        subTotal = (menu.price * quantity)
+
+        if (quantity == 0) {
+            subTotalMenu = 0.0f
+        } else {
+            subTotalMenu = ((menu.price * quantity) + selectedMenuPrice).toFloat()
+        }
+
         tvQuantity.setText(quantity.toString())
-        tvSubTotal.setText("Rp.${subTotal}")
+        tvSubTotal.setText("Rp.${subTotalMenu}")
+    }
+
+    private fun getUserFromPreferences(context: Context): User? {
+        val sharedPref = context.getSharedPreferences("USER_PREF", Context.MODE_PRIVATE)
+        val _id = sharedPref.getString("_id", null)
+        val name = sharedPref.getString("name", null)
+        val telephone = sharedPref.getString("telephone", null)
+        val isAdmin = sharedPref.getBoolean("isAdmin", false)
+        return if (_id != null && name != null && telephone != null) {
+            User(_id, name, telephone, isAdmin)
+        } else {
+            null
+        }
     }
 }

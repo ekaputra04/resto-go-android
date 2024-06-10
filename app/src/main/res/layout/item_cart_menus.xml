@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/img_item_cart_menus"
-        android:layout_width="136dp"
-        android:layout_height="117dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/rounded_corners"
         android:padding="4dp"
         android:src="@drawable/nasi_tempe_bakar"
@@ -28,7 +28,7 @@
         android:fontFamily="@font/poppins_semi_bold"
         android:text="@string/nasi_tempe_bakar"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@id/tv_item_cart_menus_tambahan_text"
         app:layout_constraintStart_toEndOf="@id/img_item_cart_menus"
         app:layout_constraintTop_toTopOf="@id/img_item_cart_menus"
