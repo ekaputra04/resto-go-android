@@ -35,8 +35,8 @@ class CartActivity : Activity(), View.OnClickListener {
     private lateinit var requestQueue: com.android.volley.RequestQueue
     private lateinit var couponCode: String
     private var isCouponActive: Boolean = false
-    private val API_URL = Env.apiUrl
     private var couponDiscount: Float = 0.0f
+    private val API_URL = Env.apiUrl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +91,6 @@ class CartActivity : Activity(), View.OnClickListener {
                 if (couponCode.isNotEmpty()) {
                     applyCoupon(couponCode)
                 } else {
-                    couponCode = null.toString()
                     Toast.makeText(this, "Masukkan kode kupon!", Toast.LENGTH_SHORT).show()
                 }
 
@@ -100,7 +99,11 @@ class CartActivity : Activity(), View.OnClickListener {
 
             R.id.btn_cart_kirim -> {
                 // Handle order submission
-                submitOrder()
+                if (OrderObject.details.isNotEmpty()) {
+                    submitOrder()
+                } else {
+                    Toast.makeText(this, "Silahkan pesan menu!", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -114,6 +117,10 @@ class CartActivity : Activity(), View.OnClickListener {
                     Toast.LENGTH_SHORT
                 ).show()
 
+                OrderObject.coupon?.couponCode = couponCode
+                OrderObject.coupon?.isActive = true
+                OrderObject.coupon?.discount = couponDiscount
+
                 updateTotalPrice()
             } else {
                 Toast.makeText(this, "Kode tidak tersedia!", Toast.LENGTH_SHORT).show()
@@ -124,7 +131,6 @@ class CartActivity : Activity(), View.OnClickListener {
     }
 
     private fun submitOrder() {
-        // Implement the logic to submit the order
         val user = getUserFromPreferences(this)
 
         if (user != null) {
@@ -138,12 +144,12 @@ class CartActivity : Activity(), View.OnClickListener {
             }
 
             val couponJson = JSONObject().apply {
-                OrderObject.coupon?.let {
-                    put("couponCode", couponCode)
-                    put("isActive", true)
-                    put("discount", 10)
-                }
+                put("couponCode", couponCode)
+                put("isActive", isCouponActive)
+                put("discount", couponDiscount)
             }
+
+            Log.i("infoApk", couponJson.toString())
 
             val detailsJsonArray = JSONArray().apply {
                 OrderObject.details.forEach { detail ->
@@ -176,7 +182,7 @@ class CartActivity : Activity(), View.OnClickListener {
                     put("user", userJson)
                     put("coupon", couponJson)
                     put("totalPrice", OrderObject.totalPrice)
-                    put("date", Date().toString()) // Make sure date is properly formatted
+                    put("date", Date().toString())
                     put("isInCart", OrderObject.isInCart)
                     put("isDone", OrderObject.isDone)
                     put("details", detailsJsonArray)
@@ -217,13 +223,11 @@ class CartActivity : Activity(), View.OnClickListener {
 
             Toast.makeText(this, "Order berhasil dipesan!", Toast.LENGTH_SHORT).show()
 
-//            Reset semua data
-            OrderObject.user = null
             OrderObject.coupon = null
             OrderObject.totalPrice = 0.0f
             OrderObject.details = emptyList()
 
-            val intent = Intent(this, SplashScreenActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         } else {

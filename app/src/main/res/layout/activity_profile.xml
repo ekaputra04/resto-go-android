@@ -372,7 +372,7 @@
                 app:layout_constraintTop_toTopOf="@id/img_profile_icon_logout" />
 
             <ImageView
-                android:id="@+id/btn_profile_detail_logout"
+                android:id="@+id/img_profile_detail_logout"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:src="@drawable/panah_kanan_oranye"

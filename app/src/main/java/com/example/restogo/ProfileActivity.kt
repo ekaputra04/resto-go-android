@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.restogo.model.OrderObject
 import com.example.restogo.model.User
 
 class ProfileActivity : Activity(), View.OnClickListener {
@@ -23,6 +24,15 @@ class ProfileActivity : Activity(), View.OnClickListener {
     private lateinit var btnShowMenus: ImageView
     private lateinit var btnShowExtraMenus: ImageView
     private lateinit var btnShowUsers: ImageView
+    private lateinit var imgNameDetail: ImageView
+    private lateinit var imgTelephoneDetail: ImageView
+    private lateinit var imgMyOrdersDetail: ImageView
+    private lateinit var imgMenuCategoriesDetail: ImageView
+    private lateinit var imgMenusDetail: ImageView
+    private lateinit var imgExtraMenusDetail: ImageView
+    private lateinit var imgUsersDetail: ImageView
+    private lateinit var imgLogout: ImageView
+    private lateinit var imgLogoutDetail: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +53,8 @@ class ProfileActivity : Activity(), View.OnClickListener {
         btnShowMenus.setOnClickListener(this)
         btnShowExtraMenus.setOnClickListener(this)
         btnShowUsers.setOnClickListener(this)
+        imgLogout.setOnClickListener(this)
+        imgLogoutDetail.setOnClickListener(this)
     }
 
     private fun initComponents() {
@@ -59,6 +71,15 @@ class ProfileActivity : Activity(), View.OnClickListener {
         btnShowMenus = findViewById(R.id.btn_profile_detail_menu)
         btnShowExtraMenus = findViewById(R.id.btn_profile_detail_extra_menu)
         btnShowUsers = findViewById(R.id.btn_profile_detail_pelanggan)
+        imgNameDetail = findViewById(R.id.img_profile_icon_name)
+        imgTelephoneDetail = findViewById(R.id.img_profile_icon_telephone)
+        imgMyOrdersDetail = findViewById(R.id.img_profile_icon_pesanan_saya)
+        imgMenuCategoriesDetail = findViewById(R.id.img_profile_icon_daftar_kategori_menu)
+        imgMenusDetail = findViewById(R.id.img_profile_icon_daftar_menu)
+        imgExtraMenusDetail = findViewById(R.id.img_profile_icon_daftar_extra_menu)
+        imgUsersDetail = findViewById(R.id.img_profile_icon_daftar_pelanggan)
+        imgLogout = findViewById(R.id.img_profile_icon_logout)
+        imgLogoutDetail = findViewById(R.id.img_profile_detail_logout)
     }
 
     override fun onClick(v: View?) {
@@ -68,41 +89,54 @@ class ProfileActivity : Activity(), View.OnClickListener {
             finish()
         }
 
-        if (v?.id == R.id.btn_profile_detail_name) {
+        if (v?.id == R.id.btn_profile_detail_name || v?.id == R.id.img_profile_icon_name) {
             val intent = Intent(this, UpdateNameUserActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        if (v?.id == R.id.btn_profile_detail_telephone) {
+        if (v?.id == R.id.btn_profile_detail_telephone || v?.id == R.id.img_profile_icon_telephone) {
             val intent = Intent(this, UpdateTelephoneUserActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        if (v?.id == R.id.btn_profile_detail_pesanan_saya) {
+        if (v?.id == R.id.btn_profile_detail_pesanan_saya || v?.id == R.id.img_profile_icon_pesanan_saya) {
 
         }
 
-        if (v?.id == R.id.btn_profile_detail_kategori_menu) {
+        if (v?.id == R.id.btn_profile_detail_kategori_menu || v?.id == R.id.img_profile_icon_daftar_kategori_menu) {
             val intent = Intent(this, MenuCategoryActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        if (v?.id == R.id.btn_profile_detail_menu) {
+        if (v?.id == R.id.btn_profile_detail_menu || v?.id == R.id.img_profile_icon_daftar_menu) {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        if (v?.id == R.id.btn_profile_detail_extra_menu) {
+        if (v?.id == R.id.btn_profile_detail_extra_menu || v?.id == R.id.img_profile_icon_daftar_extra_menu) {
             val intent = Intent(this, ExtraMenuActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        if (v?.id == R.id.btn_profile_detail_pelanggan) {
+        if (v?.id == R.id.btn_profile_detail_pelanggan || v?.id == R.id.img_profile_icon_daftar_pelanggan) {
+
+        }
+
+        if (v?.id == R.id.img_profile_icon_logout || v?.id == R.id.img_profile_detail_logout) {
+//            Reset semua data
+            OrderObject.user = null
+            OrderObject.coupon = null
+            OrderObject.totalPrice = 0.0f
+            OrderObject.details = emptyList()
+
+            val intent = Intent(this, SplashScreenActivity::class.java)
+            startActivity(intent)
+            finish()
 
         }
     }
