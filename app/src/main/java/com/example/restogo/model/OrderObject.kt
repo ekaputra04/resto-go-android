@@ -3,7 +3,7 @@ package com.example.restogo.model
 import java.util.Date
 
 object OrderObject {
-    var userId: String = ""
+    var user: User? = null
     var coupon: Coupon? = null
     var totalPrice: Float = 0.0f
     var date: Date = Date()

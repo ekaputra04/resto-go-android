@@ -2,6 +2,7 @@ package com.example.restogo
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,8 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.restogo.model.Order
 import com.example.restogo.model.OrderObject
 import com.example.restogo.model.User
+import org.json.JSONArray
+import org.json.JSONObject
+import java.util.Date
 
 class CartActivity : Activity(), View.OnClickListener {
     private lateinit var btnBack: ImageView
@@ -28,6 +33,8 @@ class CartActivity : Activity(), View.OnClickListener {
     private lateinit var tvTotalPrice: TextView
     private lateinit var adapter: CartAdapter
     private lateinit var requestQueue: com.android.volley.RequestQueue
+    private lateinit var couponCode: String
+    private var isCouponActive: Boolean = false
     private val API_URL = Env.apiUrl
     private var couponDiscount: Float = 0.0f
 
@@ -65,6 +72,8 @@ class CartActivity : Activity(), View.OnClickListener {
     private fun updateTotalPrice() {
         var totalPrice = OrderObject.details.sumOf { it.subTotalMenu.toDouble() }.toFloat()
         totalPrice *= ((100 - couponDiscount) / 100)
+
+        OrderObject.totalPrice = totalPrice
         tvTotalPrice.text = "Rp.${totalPrice}"
     }
 
@@ -78,11 +87,12 @@ class CartActivity : Activity(), View.OnClickListener {
 
             R.id.btn_cart_apply -> {
                 // Handle coupon application
-                val couponCode = edtCoupon.text.toString().trim()
+                couponCode = edtCoupon.text.toString().trim()
                 if (couponCode.isNotEmpty()) {
                     applyCoupon(couponCode)
                 } else {
-                    Toast.makeText(this, "Please enter a coupon code", Toast.LENGTH_SHORT).show()
+                    couponCode = null.toString()
+                    Toast.makeText(this, "Masukkan kode kupon!", Toast.LENGTH_SHORT).show()
                 }
 
                 updateTotalPrice()
@@ -115,13 +125,110 @@ class CartActivity : Activity(), View.OnClickListener {
 
     private fun submitOrder() {
         // Implement the logic to submit the order
-        Toast.makeText(this, "Order submitted", Toast.LENGTH_SHORT).show()
+        val user = getUserFromPreferences(this)
 
+        if (user != null) {
+            OrderObject.user = user
 
-        // Example: redirect to another activity after order submission
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+            val userJson = JSONObject().apply {
+                put("_id", user._id)
+                put("name", user.name)
+                put("telephone", user.telephone)
+                put("isAdmin", user.isAdmin)
+            }
+
+            val couponJson = JSONObject().apply {
+                OrderObject.coupon?.let {
+                    put("couponCode", couponCode)
+                    put("isActive", true)
+                    put("discount", 10)
+                }
+            }
+
+            val detailsJsonArray = JSONArray().apply {
+                OrderObject.details.forEach { detail ->
+                    val detailJson = JSONObject().apply {
+                        val menuJson = JSONObject().apply {
+                            put("_id", detail.menu._id)
+                            put("name", detail.menu.name)
+                            put("price", detail.menu.price)
+                            put("category", detail.menu.category)
+                            put("url_image", detail.menu.url_image)
+                        }
+
+                        val extraMenuJson = JSONObject().apply {
+                            put("_id", detail.extraMenu?._id)
+                            put("name", detail.extraMenu?.name)
+                            put("price", detail.extraMenu?.price)
+                        }
+
+                        put("menu", menuJson)
+                        put("quantity", detail.quantity)
+                        put("extraMenu", extraMenuJson)
+                        put("subTotalMenu", detail.subTotalMenu)
+                    }
+                    put(detailJson)
+                }
+            }
+
+            val requestBody = JSONObject().apply {
+                put("data", JSONObject().apply {
+                    put("user", userJson)
+                    put("coupon", couponJson)
+                    put("totalPrice", OrderObject.totalPrice)
+                    put("date", Date().toString()) // Make sure date is properly formatted
+                    put("isInCart", OrderObject.isInCart)
+                    put("isDone", OrderObject.isDone)
+                    put("details", detailsJsonArray)
+                })
+            }
+
+            val submitRequest = JsonObjectRequest(
+                Request.Method.POST, "$API_URL/orders", requestBody,
+                { response ->
+                    Toast.makeText(
+                        this,
+                        "Berhasil menambah order!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                },
+                { error ->
+                    Log.e("API_ERROR", error.toString())
+                    if (error.networkResponse != null) {
+                        val statusCode = error.networkResponse.statusCode
+                        val responseBody =
+                            String(error.networkResponse.data, Charsets.UTF_8)
+                        Log.e(
+                            "API_ERROR",
+                            "Status Code: $statusCode\nResponse Body: $responseBody"
+                        )
+                    }
+                    Toast.makeText(
+                        this,
+                        "Gagal menambah menu!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            )
+            requestQueue.add(submitRequest)
+
+            Toast.makeText(this, "Order berhasil dipesan!", Toast.LENGTH_SHORT).show()
+
+//            Reset semua data
+            OrderObject.user = null
+            OrderObject.coupon = null
+            OrderObject.totalPrice = 0.0f
+            OrderObject.details = emptyList()
+
+            val intent = Intent(this, SplashScreenActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            Toast.makeText(this, "User not found in preferences", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun checkCouponExists(couponCode: String, callback: (Boolean) -> Unit) {
@@ -132,9 +239,16 @@ class CartActivity : Activity(), View.OnClickListener {
                 Log.d("API_RESPONSE", response.toString())
                 if (response.has("data")) {
                     couponDiscount = response.getJSONObject("data").getInt("discount").toFloat()
+                    isCouponActive = true
+
+                    OrderObject.coupon?.couponCode = couponCode
+                    OrderObject.coupon?.isActive = true
+                    OrderObject.coupon?.discount = couponDiscount
+
                     callback(true)
                 } else {
                     couponDiscount = 0.0f
+                    isCouponActive = false
                     callback(false)
                 }
             },
@@ -149,5 +263,18 @@ class CartActivity : Activity(), View.OnClickListener {
             }
         )
         requestQueue.add(request)
+    }
+
+    private fun getUserFromPreferences(context: Context): User? {
+        val sharedPref = context.getSharedPreferences("USER_PREF", Context.MODE_PRIVATE)
+        val _id = sharedPref.getString("_id", null)
+        val name = sharedPref.getString("name", null)
+        val telephone = sharedPref.getString("telephone", null)
+        val isAdmin = sharedPref.getBoolean("isAdmin", false)
+        return if (_id != null && name != null && telephone != null) {
+            User(_id, name, telephone, isAdmin)
+        } else {
+            null
+        }
     }
 }
