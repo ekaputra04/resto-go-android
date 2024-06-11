@@ -134,10 +134,8 @@ class DetailMenuActivity : Activity(), View.OnClickListener {
                 val user = getUserFromPreferences(this)
                 val newDetailMenu = DetailMenu(menu, quantity, selectedExtraMenu, subTotalMenu)
 
-                OrderObject.userId = user?._id!!
                 OrderObject.details = OrderObject.details + newDetailMenu
                 OrderObject.totalPrice += subTotalMenu
-                OrderObject.date = Date()
 
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
