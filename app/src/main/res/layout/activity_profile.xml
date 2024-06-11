@@ -351,28 +351,35 @@
             <!-- detail pelanggan end (admin only) -->
 
             <ImageView
+                android:id="@+id/img_profile_icon_logout"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/icon_keluar"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="205dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_profile_icon_daftar_pelanggan" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="35sp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:fontFamily="@font/poppins_semi_bold"
-                android:text="Keluar"
+                android:text="@string/keluar"
                 android:textColor="@color/dark_gray"
                 android:textSize="14sp"
-                tools:layout_editor_absoluteX="64dp"
-                tools:layout_editor_absoluteY="220dp" />
+                app:layout_constraintBottom_toBottomOf="@id/img_profile_icon_logout"
+                app:layout_constraintStart_toEndOf="@id/img_profile_icon_logout"
+                app:layout_constraintTop_toTopOf="@id/img_profile_icon_logout" />
 
             <ImageView
-                android:layout_width="7dp"
+                android:id="@+id/btn_profile_detail_logout"
+                android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:src="@drawable/panah_kanan_oranye"
-                tools:layout_editor_absoluteX="340dp"
-                tools:layout_editor_absoluteY="234dp" />
+                app:layout_constraintBottom_toBottomOf="@id/img_profile_icon_logout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/img_profile_icon_logout" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
