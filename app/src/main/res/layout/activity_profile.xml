@@ -83,12 +83,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="264dp"
+        android:layout_marginBottom="204dp"
         android:background="@drawable/square_profile_information"
         android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="5dp">
+        tools:layout_editor_absoluteX="6dp">
 
         <ImageView
             android:layout_width="50dp"
@@ -181,6 +181,30 @@
             android:src="@drawable/panah_kanan_oranye"
             tools:layout_editor_absoluteX="340dp"
             tools:layout_editor_absoluteY="158dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icon_keluar"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="205dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35sp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="Keluar"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="64dp"
+            tools:layout_editor_absoluteY="220dp" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="15dp"
+            android:src="@drawable/panah_kanan_oranye"
+            tools:layout_editor_absoluteX="340dp"
+            tools:layout_editor_absoluteY="234dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

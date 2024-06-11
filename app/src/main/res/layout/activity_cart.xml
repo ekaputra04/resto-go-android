@@ -269,6 +269,7 @@
             android:scaleType="centerInside"
             android:text="@string/apply"
             android:textColor="@color/white"
+            android:textSize="14sp"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="267dp"
             tools:layout_editor_absoluteY="41dp" />
