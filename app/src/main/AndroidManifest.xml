@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
     <application
@@ -18,14 +19,32 @@
         android:theme="@style/Theme.RestoGo"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateExtraMenusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddExtraMenusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExtraMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateTelephoneUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateNameUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".UpdateMenuActivity"
             android:exported="false" />
         <activity
             android:name=".AddMenuActivity"
             android:exported="false" />
         <activity
-             android:name=".MenuActivity"
-             android:exported="false" />
+            android:name=".MenuActivity"
+            android:exported="false" />
         <activity
             android:name=".UpdateMenuCategoryActivity"
             android:exported="false" />

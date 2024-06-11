@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.restogo.model.Menu
 
 class MenuAdapter(private val menuList: List<Menu>, private val onItemClick: (Menu) -> Unit) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 

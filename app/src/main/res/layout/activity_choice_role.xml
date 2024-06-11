@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
+    android:padding="32dp"
     tools:context=".ChoiceRoleActivity">
 
     <ImageView
         android:id="@+id/img_choice_welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/welcome"
         android:src="@drawable/welcome"
         app:layout_constraintTop_toTopOf="parent" />

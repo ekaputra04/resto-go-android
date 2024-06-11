@@ -12,6 +12,9 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.restogo.model.ApiService
+import com.example.restogo.model.Menu
+import com.example.restogo.model.MenuCategory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -72,7 +75,7 @@ class UpdateMenuActivity : Activity(), View.OnClickListener {
         edtName = findViewById(R.id.edt_update_menu_activity_name)
         edtPrice = findViewById(R.id.edt_update_menu_activity_price)
         spinnerMenuCategories = findViewById(R.id.spinner_update_menu_activity_category)
-        btnSimpan = findViewById(R.id.btn_update_menu_category_simpan)
+        btnSimpan = findViewById(R.id.btn_update_menu_activity_simpan)
         btnBack = findViewById(R.id.img_update_menu_activity_back)
         requestQueue = Volley.newRequestQueue(this)
         fetchMenuCategories()
@@ -187,7 +190,7 @@ class UpdateMenuActivity : Activity(), View.OnClickListener {
             }
 
         }
-        if (v?.id == R.id.img_update_menu_category_back) {
+        if (v?.id == R.id.img_update_menu_activity_back) {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
             finish()

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    android:background="@color/dark"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:id="@+id/img_item_cart_menus"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/rounded_corners"
+        android:padding="4dp"
+        android:src="@drawable/nasi_tempe_bakar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_item_cart_menus_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/nasi_tempe_bakar"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_item_cart_menus_tambahan_text"
+        app:layout_constraintStart_toEndOf="@id/img_item_cart_menus"
+        app:layout_constraintTop_toTopOf="@id/img_item_cart_menus"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_item_cart_menus_tambahan_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/poppins_light"
+        android:text="@string/tambahan"
+        android:textColor="@color/gray"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_item_cart_menus_tambahan_description"
+        app:layout_constraintStart_toEndOf="@id/img_item_cart_menus"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_cart_menus_name"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_item_cart_menus_tambahan_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/telur"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_item_cart_menus_price"
+        app:layout_constraintStart_toEndOf="@id/img_item_cart_menus"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_cart_menus_tambahan_text"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_item_cart_menus_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/rp_28000"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_item_cart_menus"
+        app:layout_constraintStart_toEndOf="@id/img_item_cart_menus"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_cart_menus_tambahan_description" />
+
+    <ImageView
+        android:id="@+id/img_item_cart_menus_minus"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/circle_background"
+        android:scaleType="centerInside"
+        android:src="@drawable/minus_mark"
+        app:layout_constraintBottom_toBottomOf="@+id/img_item_cart_menus_plus"
+        app:layout_constraintEnd_toStartOf="@id/tv_item_cart_menus_quantity"
+        app:layout_constraintTop_toTopOf="@+id/img_item_cart_menus_plus" />
+
+    <TextView
+        android:id="@+id/tv_item_cart_menus_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="24sp"
+        android:layout_marginHorizontal="16dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/_2"
+        android:textColor="@color/gray"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/img_item_cart_menus_plus"
+        app:layout_constraintEnd_toStartOf="@+id/img_item_cart_menus_plus"
+        app:layout_constraintTop_toTopOf="@id/img_item_cart_menus_plus" />
+
+    <ImageView
+        android:id="@+id/img_item_cart_menus_plus"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:background="@drawable/circle_background"
+        android:scaleType="centerInside"
+        android:src="@drawable/plus_mark"
+        app:layout_constraintBottom_toBottomOf="@id/tv_item_cart_menus_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_item_cart_menus_price" />
+</androidx.constraintlayout.widget.ConstraintLayout>
