@@ -1,5 +1,6 @@
 package com.example.restogo
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -33,6 +34,11 @@ class ProfileActivity : Activity(), View.OnClickListener {
     private lateinit var imgUsersDetail: ImageView
     private lateinit var imgLogout: ImageView
     private lateinit var imgLogoutDetail: ImageView
+    private lateinit var tvMenuCategories: TextView
+    private lateinit var tvMenus: TextView
+    private lateinit var tvExtraMenus: TextView
+    private lateinit var tvDaftarUsers: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +50,23 @@ class ProfileActivity : Activity(), View.OnClickListener {
         tvTelephoneProfile.text = user?.telephone
         tvNameProfileDetail.text = user?.name
         tvTelephoneProfileDetail.text = user?.telephone
+
+        if (user?.isAdmin == false) {
+            imgMenuCategoriesDetail.visibility = View.GONE
+            imgMenusDetail.visibility = View.GONE
+            imgExtraMenusDetail.visibility = View.GONE
+            imgUsersDetail.visibility = View.GONE
+
+            tvMenuCategories.visibility = View.GONE
+            tvMenus.visibility = View.GONE
+            tvExtraMenus.visibility = View.GONE
+            tvDaftarUsers.visibility = View.GONE
+
+            btnShowMenuCategories.visibility = View.GONE
+            btnShowMenus.visibility = View.GONE
+            btnShowExtraMenus.visibility = View.GONE
+            btnShowUsers.visibility = View.GONE
+        }
 
         btnBack.setOnClickListener(this)
         btnEditName.setOnClickListener(this)
@@ -57,6 +80,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
         imgLogoutDetail.setOnClickListener(this)
     }
 
+    @SuppressLint("CutPasteId")
     private fun initComponents() {
         btnBack = findViewById(R.id.btn_profile_back)
         imgProfile = findViewById(R.id.img_profile_photo)
@@ -67,10 +91,12 @@ class ProfileActivity : Activity(), View.OnClickListener {
         btnEditName = findViewById(R.id.btn_profile_detail_name)
         btnEditTelephone = findViewById(R.id.btn_profile_detail_telephone)
         btnShowMyOrders = findViewById(R.id.btn_profile_detail_pesanan_saya)
+
         btnShowMenuCategories = findViewById(R.id.btn_profile_detail_kategori_menu)
         btnShowMenus = findViewById(R.id.btn_profile_detail_menu)
         btnShowExtraMenus = findViewById(R.id.btn_profile_detail_extra_menu)
         btnShowUsers = findViewById(R.id.btn_profile_detail_pelanggan)
+
         imgNameDetail = findViewById(R.id.img_profile_icon_name)
         imgTelephoneDetail = findViewById(R.id.img_profile_icon_telephone)
         imgMyOrdersDetail = findViewById(R.id.img_profile_icon_pesanan_saya)
@@ -80,6 +106,12 @@ class ProfileActivity : Activity(), View.OnClickListener {
         imgUsersDetail = findViewById(R.id.img_profile_icon_daftar_pelanggan)
         imgLogout = findViewById(R.id.img_profile_icon_logout)
         imgLogoutDetail = findViewById(R.id.img_profile_detail_logout)
+
+        tvMenuCategories = findViewById(R.id.tv_profile_kategori_menu)
+        tvMenus = findViewById(R.id.tv_profile_daftar_menu)
+        tvExtraMenus = findViewById(R.id.tv_profile_extra_menu)
+        tvDaftarUsers = findViewById(R.id.tv_profile_daftar_pelanggan)
+
     }
 
     override fun onClick(v: View?) {

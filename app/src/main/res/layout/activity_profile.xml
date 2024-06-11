@@ -226,6 +226,7 @@
                 app:layout_constraintTop_toBottomOf="@id/img_profile_icon_pesanan_saya" />
 
             <TextView
+                android:id="@+id/tv_profile_kategori_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -260,6 +261,7 @@
                 app:layout_constraintTop_toBottomOf="@id/img_profile_icon_daftar_kategori_menu" />
 
             <TextView
+                android:id="@+id/tv_profile_daftar_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -294,6 +296,7 @@
                 app:layout_constraintTop_toBottomOf="@id/img_profile_icon_daftar_menu" />
 
             <TextView
+                android:id="@+id/tv_profile_extra_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -328,6 +331,7 @@
                 app:layout_constraintTop_toBottomOf="@id/img_profile_icon_daftar_extra_menu" />
 
             <TextView
+                android:id="@+id/tv_profile_daftar_pelanggan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -360,6 +364,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/img_profile_icon_daftar_pelanggan" />
 
             <TextView
+                android:id="@+id/tv_profile_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
