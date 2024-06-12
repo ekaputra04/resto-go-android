@@ -35,11 +35,25 @@ class CartAdapter(
         private val tvQuantity: TextView = itemView.findViewById(R.id.tv_item_cart_menus_quantity)
         private val imgPlus: ImageView = itemView.findViewById(R.id.img_item_cart_menus_plus)
         private val imgMinus: ImageView = itemView.findViewById(R.id.img_item_cart_menus_minus)
+        private val imgMenu: ImageView = itemView.findViewById(R.id.img_item_cart_menus)
+
         private lateinit var newDetailMenu: DetailMenu
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "DiscouragedApi")
         fun bind(oldDetailMenu: DetailMenu) {
             newDetailMenu = oldDetailMenu
+
+            // Mengubah nama file menjadi resource ID
+            val context = itemView.context
+            val resourceId = context.resources.getIdentifier(newDetailMenu.menu.url_image.replace(".jpg", ""), "drawable", context.packageName)
+
+            // Mengatur gambar pada ImageView
+            if (resourceId != 0) { // Pastikan resource ID valid
+                imgMenu.setImageResource(resourceId)
+            } else {
+                // Anda bisa menetapkan gambar default jika resource ID tidak valid
+                imgMenu.setImageResource(R.drawable.logo)
+            }
 
             tvName.text = newDetailMenu.menu.name
             tvExtraMenu.text = newDetailMenu.extraMenu?.name ?: ""
