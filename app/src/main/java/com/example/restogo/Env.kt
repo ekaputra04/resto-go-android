@@ -1,6 +1,6 @@
 package com.example.restogo
 
-import io.github.cdimascio.dotenv.dotenv
+
 
 object Env {
 //    val dotenv = dotenv()

@@ -7,42 +7,26 @@
     android:background="@drawable/background_splash"
     tools:context=".SplashScreenActivity">
 
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/img_splash_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@id/tv_splash_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_splash_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_extra_bold"
+        android:text="@string/restogo"
+        android:textAlignment="center"
+        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/img_splash_logo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_extra_bold"
-            android:text="@string/restogo"
-            android:textAlignment="center"
-            android:textSize="32sp" />
-
-        <Button
-            android:id="@+id/btn_splash_pesan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:background="@drawable/background_primary"
-            android:fontFamily="@font/poppins_bold"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="32dp"
-            android:paddingVertical="16dp"
-            android:text="@string/pesan_sekarang"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/img_splash_logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

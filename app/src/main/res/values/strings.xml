@@ -83,4 +83,11 @@
     <string name="lalapan">Lalapan</string>
     <string name="update_extra_menu">Update Extra Menu</string>
     <string name="option">Option</string>
+    <string name="keluar">Keluar</string>
+    <string name="daftar_kupon">Daftar Kupon</string>
+    <string name="tambah_kupon">Tambah Kupon</string>
+    <string name="kode_kupon">Kode Kupon</string>
+    <string name="diskon">Diskon</string>
+    <string name="berlaku">Berlaku</string>
+    <string name="juni_juli_2024">Juni - Juli 2024</string>
 </resources>

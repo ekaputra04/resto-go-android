@@ -62,7 +62,7 @@ class DetailMenuActivity : Activity(), View.OnClickListener {
         const val EXTRA_MENU: String = "extra_menu"
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "DiscouragedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_menu)
@@ -74,6 +74,18 @@ class DetailMenuActivity : Activity(), View.OnClickListener {
             @Suppress("DEPRECATION")
             intent?.getParcelableExtra(EXTRA_MENU)
         }!!
+
+        // Mengubah nama file menjadi resource ID
+        val resourceId =
+            resources.getIdentifier(menu.url_image.replace(".jpg", ""), "drawable", packageName)
+
+        // Mengatur gambar pada ImageView
+        if (resourceId != 0) { // Pastikan resource ID valid
+            imgPhoto.setImageResource(resourceId)
+        } else {
+            // Anda bisa menetapkan gambar default jika resource ID tidak valid
+            imgPhoto.setImageResource(R.drawable.logo)
+        }
 
         tvName.setText(menu.name)
         tvPrice.setText("Rp.${menu.price}")
@@ -134,10 +146,8 @@ class DetailMenuActivity : Activity(), View.OnClickListener {
                 val user = getUserFromPreferences(this)
                 val newDetailMenu = DetailMenu(menu, quantity, selectedExtraMenu, subTotalMenu)
 
-                OrderObject.userId = user?._id!!
                 OrderObject.details = OrderObject.details + newDetailMenu
                 OrderObject.totalPrice += subTotalMenu
-                OrderObject.date = Date()
 
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)

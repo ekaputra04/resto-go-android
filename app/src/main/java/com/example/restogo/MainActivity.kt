@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley
 import com.example.restogo.model.ApiService
 import com.example.restogo.model.Menu
 import com.example.restogo.model.MenuCategory
+import com.example.restogo.model.OrderObject
 import com.example.restogo.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +32,7 @@ class MainActivity : Activity(), View.OnClickListener {
     private lateinit var tvRoleUser: TextView
     private lateinit var tvShowAllMenus: TextView
     private lateinit var tvSilahkanPilihMenu: TextView
+    private lateinit var tvCountMenuInCart: TextView
     private lateinit var imgProfile: ImageView
     private lateinit var imgCart: ImageView
     private lateinit var imgShowAllMenus: ImageView
@@ -69,6 +71,7 @@ class MainActivity : Activity(), View.OnClickListener {
         updateUIUser()
         updateUIMenuCategories()
         updateUIMenus(menus)
+        updateUICart()
 
         fetchCategories()
         fetchMenus()
@@ -114,6 +117,12 @@ class MainActivity : Activity(), View.OnClickListener {
         btnSearchMenu = findViewById(R.id.btn_home_search)
         recycleViewMenuCategories = findViewById(R.id.rv_home_menu_categories)
         recycleViewMenus = findViewById(R.id.rv_home_menus)
+        tvCountMenuInCart = findViewById(R.id.tv_home_value_cart)
+    }
+
+    private fun updateUICart() {
+        val countMenusInCart = OrderObject.details.count()
+        tvCountMenuInCart.setText(countMenusInCart.toString())
     }
 
     @SuppressLint("SetTextI18n")
