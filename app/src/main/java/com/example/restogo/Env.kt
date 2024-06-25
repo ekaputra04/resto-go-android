@@ -1,7 +1,10 @@
 package com.example.restogo
 
 object Env {
-    val apiUrl = "http://10.0.2.2:8000"
+//    val dotenv = dotenv()
+
+    //val apiUrl = "http://10.0.2.2:8000"
+    val apiUrl ="https://backend-resto-go.vercel.app/"
     val apiKey = "restogo"
 
     val ACCOUNT_SID = "AC6c2341532361c874c5707947a9a013c6"
