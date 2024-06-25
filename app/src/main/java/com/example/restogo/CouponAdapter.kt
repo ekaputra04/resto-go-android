@@ -1,5 +1,6 @@
 package com.example.restogo
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restogo.model.Coupon
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeParseException
 
 class CouponAdapter(
     private val couponsList: List<Coupon>,
@@ -14,7 +18,8 @@ class CouponAdapter(
 ) : RecyclerView.Adapter<CouponAdapter.CouponViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CouponViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_edit_coupons, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_edit_coupons, parent, false)
         return CouponViewHolder(view)
     }
 
@@ -25,7 +30,8 @@ class CouponAdapter(
 
     override fun getItemCount() = couponsList.size
 
-    inner class CouponViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class CouponViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         private val tvCouponCode: TextView = itemView.findViewById(R.id.tv_item_coupons_name)
         private val tvDiscount: TextView = itemView.findViewById(R.id.tv_item_coupons_discount)
         private val tvBerlaku: TextView = itemView.findViewById(R.id.tv_item_coupons_berlaku)
@@ -35,15 +41,39 @@ class CouponAdapter(
             itemView.setOnClickListener(this)
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(coupon: Coupon) {
             tvCouponCode.text = coupon.couponCode
             tvDiscount.text = coupon.discount.toString()
 
-            if (true) {
-                tvBerlaku.text = "Berlaku"
-                tvBerlaku.setTextColor(ContextCompat.getColor(itemView.context, R.color.teal_700))
-            } else {
-                tvBerlaku.text = "Tidak Berlaku"
+            val currentDateTime = LocalDateTime.now()
+
+            val dateStarted = coupon.dateStarted.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime()
+
+            val dateEnded = coupon.dateEnded.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime()
+
+            val isActive =
+                currentDateTime.isAfter(dateStarted) && currentDateTime.isBefore(dateEnded)
+
+            try {
+                if (isActive) {
+                    tvBerlaku.text = "Berlaku"
+                    tvBerlaku.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.teal_700
+                        )
+                    )
+                } else {
+                    tvBerlaku.text = "Tidak Berlaku"
+                    tvBerlaku.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
+                }
+            } catch (e: DateTimeParseException) {
+                tvBerlaku.text = "Data tanggal tidak valid"
                 tvBerlaku.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
             }
 

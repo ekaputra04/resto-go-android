@@ -8,7 +8,6 @@ import java.util.Date
 data class Coupon(
     var _id: String,
     var couponCode: String,
-//    var isActive: Boolean = false,
     var discount: Float,
     var dateStarted: Date,
     var dateEnded: Date

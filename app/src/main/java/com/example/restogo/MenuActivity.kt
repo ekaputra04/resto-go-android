@@ -74,7 +74,6 @@ class MenuActivity : Activity(), View.OnClickListener {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = apiService.getMenus()
-                Log.i("infoApk", response.data.toString())
                 withContext(Dispatchers.Main) {
                     menus.clear()
                     menus.addAll(response.data)
