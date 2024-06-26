@@ -118,8 +118,8 @@ class CouponActivity : Activity(), View.OnClickListener {
                 when (which) {
                     0 -> {
                         // Handle update kupon
-                        val intent = Intent(this, UpdateMenuActivity::class.java).apply {
-                            putExtra(UpdateMenuActivity.EXTRA_MENU, coupon)
+                        val intent = Intent(this, UpdateCouponActivity::class.java).apply {
+                            putExtra(UpdateCouponActivity.EXTRA_COUPON, coupon)
                         }
                         startActivity(intent)
                     }
