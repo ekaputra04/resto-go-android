@@ -12,4 +12,7 @@ interface ApiService {
 
     @GET("extra-menus")
     suspend fun getExtraMenus(): ExtraMenuResponse
+
+    @GET("coupons")
+    suspend fun getCoupons(): CouponResponse
 }

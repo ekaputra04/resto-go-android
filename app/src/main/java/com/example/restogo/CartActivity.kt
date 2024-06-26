@@ -20,9 +20,18 @@ import com.android.volley.toolbox.Volley
 import com.example.restogo.model.Order
 import com.example.restogo.model.OrderObject
 import com.example.restogo.model.User
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Credentials
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class CartActivity : Activity(), View.OnClickListener {
     private lateinit var btnBack: ImageView
@@ -37,6 +46,18 @@ class CartActivity : Activity(), View.OnClickListener {
     private var isCouponActive: Boolean = false
     private var couponDiscount: Float = 0.0f
     private val API_URL = Env.apiUrl
+    private val client = OkHttpClient()
+    private val ACCOUNT_SID = Env.ACCOUNT_SID
+    private val AUTH_TOKEN = Env.AUTH_TOKEN
+    private val TWILIO_SANDBOX_WHATSAPP_NUMBER = Env.TWILIO_SANDBOX_WHATSAPP_NUMBER
+    var stringResponseHeader = "================================\n" +
+            "*RESTO GO*\n" +
+            "_Cita Rasa Nusantara_\n" +
+            "================================\n"
+    var stringResponseFooter = "--------------------------------\n" +
+            "*TERIMA KASIH*\n" +
+            "*Sampai Jumpa Kembali*\n" +
+            "================================\n"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,7 +139,7 @@ class CartActivity : Activity(), View.OnClickListener {
                 ).show()
 
                 OrderObject.coupon?.couponCode = couponCode
-                OrderObject.coupon?.isActive = true
+//                OrderObject.coupon?.isActive = true
                 OrderObject.coupon?.discount = couponDiscount
 
                 updateTotalPrice()
@@ -223,12 +244,54 @@ class CartActivity : Activity(), View.OnClickListener {
 
             Toast.makeText(this, "Order berhasil dipesan!", Toast.LENGTH_SHORT).show()
 
+            // Prepare the message for WhatsApp
+            val stringBuilder = StringBuilder()
+            stringBuilder.append(stringResponseHeader)
+            stringBuilder.append(
+                "Tanggal: ${
+                    SimpleDateFormat(
+                        "dd-MM-yyyy HH:mm:ss",
+                        Locale.getDefault()
+                    ).format(Date())
+                }\n"
+            )
+            stringBuilder.append("Pelanggan: ${user.name}\n")
+            stringBuilder.append("Telepon: ${user.telephone}\n")
+            stringBuilder.append("--------------------------------\n")
+
+            OrderObject.details.forEach { detail ->
+                stringBuilder.append("${detail.menu.name}\n")
+                stringBuilder.append("Jumlah: ${detail.quantity}\n")
+                stringBuilder.append("Harga: Rp.${detail.menu.price}\n")
+                detail.extraMenu?.let { extra ->
+                    stringBuilder.append("Extra: ${extra.name} - Rp.${extra.price}\n")
+                }
+                stringBuilder.append("Subtotal: Rp.${detail.subTotalMenu}\n")
+                stringBuilder.append("--------------------------------\n")
+            }
+
+            stringBuilder.append(
+                "Subtotal: Rp.${
+                    OrderObject.details.sumOf { it.subTotalMenu.toDouble() }.toFloat()
+                }\n"
+            )
+            if (couponDiscount > 0) {
+                stringBuilder.append("Diskon: $couponDiscount%\n")
+            }
+            stringBuilder.append("Total: Rp.${OrderObject.totalPrice}\n")
+            stringBuilder.append(stringResponseFooter)
+
+            val message = stringBuilder.toString()
+
+            sendMessage(
+                formatPhoneNumber(user.telephone),
+                message
+            )
+
             OrderObject.coupon = null
             OrderObject.totalPrice = 0.0f
             OrderObject.details = emptyList()
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             finish()
         } else {
             Toast.makeText(this, "User not found in preferences", Toast.LENGTH_SHORT).show()
@@ -246,7 +309,7 @@ class CartActivity : Activity(), View.OnClickListener {
                     isCouponActive = true
 
                     OrderObject.coupon?.couponCode = couponCode
-                    OrderObject.coupon?.isActive = true
+//                    OrderObject.coupon?.isActive = true
                     OrderObject.coupon?.discount = couponDiscount
 
                     callback(true)
@@ -279,6 +342,65 @@ class CartActivity : Activity(), View.OnClickListener {
             User(_id, name, telephone, isAdmin)
         } else {
             null
+        }
+    }
+
+    private fun sendMessage(to: String, message: String) {
+        val url = "https://api.twilio.com/2010-04-01/Accounts/$ACCOUNT_SID/Messages.json"
+        val body = FormBody.Builder()
+            .add("To", "whatsapp:$to")
+            .add("From", TWILIO_SANDBOX_WHATSAPP_NUMBER)
+            .add("Body", message)
+            .build()
+
+        val request = okhttp3.Request.Builder()
+            .url(url)
+            .post(body)
+            .addHeader("Authorization", Credentials.basic(ACCOUNT_SID, AUTH_TOKEN))
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                runOnUiThread {
+                    Toast.makeText(
+                        applicationContext,
+                        "Failed to send message: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!it.isSuccessful) {
+                        runOnUiThread {
+                            Toast.makeText(
+                                applicationContext,
+                                "Failed to send message: ${it.body?.string()}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        runOnUiThread {
+                            Toast.makeText(
+                                applicationContext,
+                                "Message sent successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    fun formatPhoneNumber(phoneNumber: String): String {
+        // Check if the phone number starts with "0" and replace it with "+62"
+        return if (phoneNumber.startsWith("0")) {
+            "+62" + phoneNumber.substring(1)
+        } else {
+            phoneNumber // Return the original number if it does not start with "0"
         }
     }
 }

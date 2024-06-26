@@ -13,10 +13,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.restogo.model.ApiService
-import com.example.restogo.model.Menu
+import com.example.restogo.model.Coupon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,14 +26,14 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MenuActivity : Activity(), View.OnClickListener {
-    private lateinit var btnTambahMenu: Button
+class CouponActivity : Activity(), View.OnClickListener {
+    private lateinit var btnTambahKupon: Button
     private lateinit var btnKembali: ImageView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MenuAdapter
-    private lateinit var requestQueue: com.android.volley.RequestQueue
+    private lateinit var adapter: CouponAdapter
+    private lateinit var requestQueue: RequestQueue
     private val API_URL = Env.apiUrl
-    private val menus = mutableListOf<Menu>()
+    private val coupons = mutableListOf<Coupon>()
 
     private val apiService: ApiService by lazy {
         Retrofit.Builder()
@@ -43,85 +45,100 @@ class MenuActivity : Activity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_menu)
+        setContentView(R.layout.activity_coupons)
+
         initComponents()
-        btnTambahMenu.setOnClickListener(this)
+        btnTambahKupon.setOnClickListener(this)
         btnKembali.setOnClickListener(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        adapter = MenuAdapter(menus) { menu ->
-            showUpdateDeleteDialog(menu)
+        adapter = CouponAdapter(coupons) { coupon ->
+            showUpdateDeleteDialog(coupon)
         }
         recyclerView.adapter = adapter
 
-        fetchMenus()
+        fetchCoupons()
+    }
+
+    private fun initComponents() {
+        btnTambahKupon = findViewById(R.id.btn_coupons_activity_add)
+        btnKembali = findViewById(R.id.img_coupon_activity_back)
+        recyclerView = findViewById(R.id.rv_coupons_activity)
+        requestQueue = Volley.newRequestQueue(this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btn_coupons_activity_add -> {
+                val intent = Intent(this, AddCouponActivity::class.java)
+                startActivityForResult(intent, 1)
+            }
+
+            R.id.img_coupon_activity_back -> {
+                finish()
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        fetchMenus()
-    }
-
-    private fun initComponents() {
-        btnTambahMenu = findViewById(R.id.btn_menu_activity_add)
-        btnKembali = findViewById(R.id.img_menu_activity_back)
-        recyclerView = findViewById(R.id.rv_menu_activity)
-        requestQueue = Volley.newRequestQueue(this)
+        fetchCoupons()
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun fetchMenus() {
+    private fun fetchCoupons() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = apiService.getMenus()
+                val response = apiService.getCoupons()
+
                 withContext(Dispatchers.Main) {
-                    menus.clear()
-                    menus.addAll(response.data)
+                    coupons.clear()
+                    coupons.addAll(response.data)
                     adapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
-                        this@MenuActivity,
-                        "Failed to fetch menus",
+                        this@CouponActivity,
+                        "Gagal mengambil daftar kupon",
                         Toast.LENGTH_SHORT
                     ).show()
+                    Log.e("CouponsActivity", "Error fetching coupons: ${e.message}")
                 }
             }
         }
+
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun showUpdateDeleteDialog(menu: Menu) {
-        val options = arrayOf("Update menu", "Hapus menu")
+    @SuppressLint("SetTextI18n")
+    private fun showUpdateDeleteDialog(coupon: Coupon) {
+        val options = arrayOf("Update kupon", "Hapus kupon")
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Menu: ${menu.name}")
+        builder.setTitle("Kupon: ${coupon.couponCode}")
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> {
-                        // Handle update menu
-                        val intent = Intent(this, UpdateMenuActivity::class.java).apply {
-                            putExtra(UpdateMenuActivity.EXTRA_MENU, menu)
+                        // Handle update kupon
+                        val intent = Intent(this, UpdateCouponActivity::class.java).apply {
+                            putExtra(UpdateCouponActivity.EXTRA_COUPON, coupon)
                         }
                         startActivity(intent)
-                        finish()
                     }
 
                     1 -> {
-                        // Handle delete menu
-                        deleteMenu(menu._id) { menuToRemove ->
-                            if (menuToRemove != null) {
-                                menus.remove(menuToRemove)
+                        // Handle delete kupon
+                        deleteCoupon(coupon._id) { couponToRemove ->
+                            if (couponToRemove != null) {
+                                coupons.remove(couponToRemove)
                                 adapter.notifyDataSetChanged()
                                 Toast.makeText(
-                                    this@MenuActivity,
-                                    "Berhasil menghapus menu '${menu.name}'",
+                                    this@CouponActivity,
+                                    "Berhasil menghapus kupon '${coupon.couponCode}'",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             } else {
                                 Toast.makeText(
-                                    this@MenuActivity,
-                                    "Gagal menghapus menu '${menu.name}'",
+                                    this@CouponActivity,
+                                    "Gagal menghapus kupon '${coupon.couponCode}'",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -133,34 +150,32 @@ class MenuActivity : Activity(), View.OnClickListener {
         dialog.show()
     }
 
-    private fun deleteMenu(menuId: String, callback: (Menu?) -> Unit) {
-        val url = "$API_URL/menus/$menuId"
+    private fun deleteCoupon(couponId: String, callback: (Coupon?) -> Unit) {
+        val url = "$API_URL/coupons/$couponId"
         val request = object : JsonObjectRequest(
-            Method.DELETE,
+            Request.Method.DELETE,
             url,
             null,
             { response ->
                 Log.d("API_RESPONSE", response.toString())
-                if (response.has("message") && response.getString("message") == "Berhasil menghapus menu!") {
-                    // Penghapusan menu berhasil
-                    val menuToRemove = menus.find { it._id == menuId }
-                    callback(menuToRemove)
+                if (response.has("message") && response.getString("message") == "Berhasil menghapus kupon!") {
+                    val couponToRemove = coupons.find { it._id == couponId }
+                    callback(couponToRemove)
                 } else {
-                    // Penghapusan menu gagal
                     callback(null)
                 }
             },
             { error ->
                 Log.e("API_ERROR", error.toString())
                 if (error.networkResponse?.statusCode == 404) {
-                    // Menu tidak ditemukan
                     Toast.makeText(
-                        this@MenuActivity,
-                        "Menu tidak ditemukan",
+                        this@CouponActivity,
+                        "Kupon tidak ditemukan",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Toast.makeText(this, "Terjadi kesalahan!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CouponActivity, "Terjadi kesalahan!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         ) {
@@ -171,29 +186,15 @@ class MenuActivity : Activity(), View.OnClickListener {
                 return headers
             }
         }
-
         requestQueue.add(request)
-    }
-
-    override fun onClick(v: View?) {
-        if (v?.id == R.id.btn_menu_activity_add) {
-            val intent = Intent(this, AddMenuActivity::class.java)
-            startActivityForResult(intent, 1)
-
-        }
-
-        if (v?.id == R.id.img_menu_activity_back) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 || requestCode == 2) {
             if (resultCode == RESULT_OK) {
-                fetchMenus()             }
+                fetchCoupons()
+            }
         }
     }
 }
