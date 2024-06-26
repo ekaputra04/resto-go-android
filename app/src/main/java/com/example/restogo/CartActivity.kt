@@ -29,7 +29,9 @@ import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class CartActivity : Activity(), View.OnClickListener {
     private lateinit var btnBack: ImageView
@@ -49,11 +51,12 @@ class CartActivity : Activity(), View.OnClickListener {
     private val AUTH_TOKEN = Env.AUTH_TOKEN
     private val TWILIO_SANDBOX_WHATSAPP_NUMBER = Env.TWILIO_SANDBOX_WHATSAPP_NUMBER
     var stringResponseHeader = "================================\n" +
-            "         -- RESTO GO --         \n" +
+            "*RESTO GO*\n" +
+            "_Cita Rasa Nusantara_\n" +
             "================================\n"
     var stringResponseFooter = "--------------------------------\n" +
-            "         TERIMAKASIH            \n" +
-            "      Sampai Jumpa Kembali      \n" +
+            "*TERIMA KASIH*\n" +
+            "*Sampai Jumpa Kembali*\n" +
             "================================\n"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -241,17 +244,54 @@ class CartActivity : Activity(), View.OnClickListener {
 
             Toast.makeText(this, "Order berhasil dipesan!", Toast.LENGTH_SHORT).show()
 
+            // Prepare the message for WhatsApp
+            val stringBuilder = StringBuilder()
+            stringBuilder.append(stringResponseHeader)
+            stringBuilder.append(
+                "Tanggal: ${
+                    SimpleDateFormat(
+                        "dd-MM-yyyy HH:mm:ss",
+                        Locale.getDefault()
+                    ).format(Date())
+                }\n"
+            )
+            stringBuilder.append("Pelanggan: ${user.name}\n")
+            stringBuilder.append("Telepon: ${user.telephone}\n")
+            stringBuilder.append("--------------------------------\n")
+
+            OrderObject.details.forEach { detail ->
+                stringBuilder.append("${detail.menu.name}\n")
+                stringBuilder.append("Jumlah: ${detail.quantity}\n")
+                stringBuilder.append("Harga: Rp.${detail.menu.price}\n")
+                detail.extraMenu?.let { extra ->
+                    stringBuilder.append("Extra: ${extra.name} - Rp.${extra.price}\n")
+                }
+                stringBuilder.append("Subtotal: Rp.${detail.subTotalMenu}\n")
+                stringBuilder.append("--------------------------------\n")
+            }
+
+            stringBuilder.append(
+                "Subtotal: Rp.${
+                    OrderObject.details.sumOf { it.subTotalMenu.toDouble() }.toFloat()
+                }\n"
+            )
+            if (couponDiscount > 0) {
+                stringBuilder.append("Diskon: $couponDiscount%\n")
+            }
+            stringBuilder.append("Total: Rp.${OrderObject.totalPrice}\n")
+            stringBuilder.append(stringResponseFooter)
+
+            val message = stringBuilder.toString()
+
+            sendMessage(
+                formatPhoneNumber(user.telephone),
+                message
+            )
+
             OrderObject.coupon = null
             OrderObject.totalPrice = 0.0f
             OrderObject.details = emptyList()
 
-//            val userTelephone = formatPhoneNumber(user.telephone)
-
-            sendMessage("+62" + user.telephone.substring(1), stringResponseHeader + stringResponseFooter)
-            Log.i("infoApk", user.telephone)
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             finish()
         } else {
             Toast.makeText(this, "User not found in preferences", Toast.LENGTH_SHORT).show()
