@@ -19,7 +19,6 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.restogo.model.ApiService
 import com.example.restogo.model.Coupon
-import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,7 +26,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CouponsActivity : Activity(), View.OnClickListener {
+class CouponActivity : Activity(), View.OnClickListener {
     private lateinit var btnTambahKupon: Button
     private lateinit var btnKembali: ImageView
     private lateinit var recyclerView: RecyclerView
@@ -70,8 +69,7 @@ class CouponsActivity : Activity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_coupons_activity_add -> {
-                // Implementasi logika untuk menambah kupon
-                val intent = Intent(this, AddMenuActivity::class.java)
+                val intent = Intent(this, AddCouponActivity::class.java)
                 startActivityForResult(intent, 1)
             }
 
@@ -100,7 +98,7 @@ class CouponsActivity : Activity(), View.OnClickListener {
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
-                        this@CouponsActivity,
+                        this@CouponActivity,
                         "Gagal mengambil daftar kupon",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -133,13 +131,13 @@ class CouponsActivity : Activity(), View.OnClickListener {
                                 coupons.remove(couponToRemove)
                                 adapter.notifyDataSetChanged()
                                 Toast.makeText(
-                                    this@CouponsActivity,
+                                    this@CouponActivity,
                                     "Berhasil menghapus kupon '${coupon.couponCode}'",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             } else {
                                 Toast.makeText(
-                                    this@CouponsActivity,
+                                    this@CouponActivity,
                                     "Gagal menghapus kupon '${coupon.couponCode}'",
                                     Toast.LENGTH_SHORT
                                 ).show()
@@ -171,12 +169,12 @@ class CouponsActivity : Activity(), View.OnClickListener {
                 Log.e("API_ERROR", error.toString())
                 if (error.networkResponse?.statusCode == 404) {
                     Toast.makeText(
-                        this@CouponsActivity,
+                        this@CouponActivity,
                         "Kupon tidak ditemukan",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Toast.makeText(this@CouponsActivity, "Terjadi kesalahan!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@CouponActivity, "Terjadi kesalahan!", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

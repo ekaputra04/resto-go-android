@@ -169,9 +169,8 @@ class ProfileActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.btn_profile_detail_kupon || v?.id == R.id.img_profile_icon_daftar_kupon) {
-            val intent = Intent(this, CouponsActivity::class.java)
+            val intent = Intent(this, CouponActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         if (v?.id == R.id.img_profile_icon_logout || v?.id == R.id.btn_profile_detail_logout) {
