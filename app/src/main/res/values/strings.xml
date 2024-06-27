@@ -101,4 +101,13 @@
     <string name="_1_januari_2024">1 Januari 2024</string>
     <string name="_31_januari_2024">31 Januari 2024</string>
     <string name="update_daftar_kupon">Update Daftar Kupon</string>
+    <string name="berlangsung">Berlangsung</string>
+    <string name="riwayat">Riwayat</string>
+    <string name="rp10_000_x1">Rp10.000 | x1</string>
+    <string name="_1_item">1 Item</string>
+    <string name="_">-</string>
+    <string name="tanfa_min">-</string>
+    <string name="tanda_min">-</string>
+    <string name="sedang_dikerjakan_harap_menunggu">Sedang Dikerjakan, Harap Menunggu!</string>
+    <string name="telur_rp_5000">Telur - Rp.5000</string>
 </resources>

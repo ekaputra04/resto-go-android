@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:outlineAmbientShadowColor="@color/black"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/img_item_my_order"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/nasi_tempe_bakar" />
+
+        <TextView
+            android:id="@+id/tv_my_order_tanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/_1_januari_2024"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@id/img_item_my_order"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/tv_item_my_order_nama_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/nasi_tempe_bakar"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/img_item_my_order"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_order_tanggal" />
+
+        <TextView
+            android:id="@+id/tv_my_order_harga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/rp_40_000"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/img_item_my_order"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_my_order_nama_menu" />
+
+        <TextView
+            android:id="@+id/tv_my_order_banyak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/_1_item"
+            android:textColor="@color/dark_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_my_order_harga"
+            app:layout_constraintStart_toEndOf="@id/tv_my_order_harga"
+            app:layout_constraintTop_toTopOf="@id/tv_my_order_harga" />
+
+        <TextView
+            android:id="@+id/tv_my_order_extra_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/telur_rp_5000"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/img_item_my_order"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_order_harga" />
+
+        <TextView
+            android:id="@+id/tv_my_order_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_primary"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:padding="8dp"
+            android:text="@string/sedang_dikerjakan_harap_menunggu"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_order_extra_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
