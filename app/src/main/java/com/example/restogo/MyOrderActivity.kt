@@ -1,17 +1,20 @@
 package com.example.restogo
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restogo.model.ApiService
 import com.example.restogo.model.OrderMenuData
-import com.example.restogo.model.OrderObject
+import com.example.restogo.model.OrderMenuResponse
+import com.example.restogo.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +29,7 @@ class MyOrderActivity : Activity(), View.OnClickListener {
     private lateinit var detailOrders: List<OrderMenuData>
     private lateinit var adapter: MyOrderAdapter
     private val API_URL = Env.apiUrl
-
+    private lateinit var user: User
 
     private val apiService: ApiService by lazy {
         Retrofit.Builder()
@@ -40,10 +43,10 @@ class MyOrderActivity : Activity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_orders)
         initComponents()
+        user = getUserFromPreferences(this)!!
 
-        val currentUser = OrderObject.user
-        if (currentUser != null) {
-            fetchUserOrders(currentUser._id)
+        if (user != null) {
+            fetchUserOrders(user._id)
         }
 
         btnBack.setOnClickListener(this)
@@ -61,11 +64,14 @@ class MyOrderActivity : Activity(), View.OnClickListener {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = apiService.getMenusFromUserOrder(userId)
+
+                Log.i("detailOrders", response.data[1].menu.name)
+
+
                 if (response != null) {
                     withContext(Dispatchers.Main) {
                         detailOrders = response.data
-                        Log.i("infoOrder", detailOrders[0].menu.name)
-                        adapter = MyOrderAdapter(detailOrders) { detailMenu ->
+                        adapter = MyOrderAdapter(this@MyOrderActivity, detailOrders) { detailMenu ->
                             // Implementasikan aksi ketika item diklik
                         }
                         recyclerView.adapter = adapter
@@ -84,6 +90,19 @@ class MyOrderActivity : Activity(), View.OnClickListener {
         if (v?.id == R.id.tv_my_order_riwayat) {
             val intent = Intent(this, OrderHistoryActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun getUserFromPreferences(context: Context): User? {
+        val sharedPref = context.getSharedPreferences("USER_PREF", Context.MODE_PRIVATE)
+        val _id = sharedPref.getString("_id", null)
+        val name = sharedPref.getString("name", null)
+        val telephone = sharedPref.getString("telephone", null)
+        val isAdmin = sharedPref.getBoolean("isAdmin", false)
+        return if (_id != null && name != null && telephone != null) {
+            User(_id, name, telephone, isAdmin)
+        } else {
+            null
         }
     }
 }
