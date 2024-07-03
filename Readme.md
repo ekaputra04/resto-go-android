@@ -6,15 +6,15 @@ Resto Go adalah sebuah aplikasi Android untuk melakukan manajemen pesanan makana
 
 API dari Resto Go dapat diakses pada [Repositori Backend RestoGo](https://github.com/ekaputra04/backend-resto-go).
 
-# Oleh
+[Klik disini](https://drive.google.com/file/d/1aYP7EggwjF7KRldiK_LII_n9Le5ve7h_/view?usp=sharing) untuk melihat video demonstrasi aplikasi.
 
-```
-+---------------------------+------------+
-| Resandy Prisadana         | 2205551050 |
-| I Putu Eka Putra Juniawan | 2205551087 |
-| Sultan Azizul Haromain    | 2205551155 |
-+---------------------------+------------+
-```
+## Oleh
+
+|           Nama            |    NIM     |                  Github                   |
+| :-----------------------: | :--------: | :---------------------------------------: |
+|     Resandy Prisadana     | 2205551050 |  [Github](https://github.com/PRisadana)   |
+| I Putu Eka Putra Juniawan | 2205551087 |  [Github](https://github.com/ekaputra04)  |
+|  Sultan Azizul Haromain   | 2205551155 | [Github](https://github.com/sultanazizul) |
 
 Pemrograman Mobile A
 
