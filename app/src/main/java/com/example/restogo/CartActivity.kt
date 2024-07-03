@@ -3,7 +3,6 @@ package com.example.restogo
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.restogo.model.Order
 import com.example.restogo.model.OrderObject
 import com.example.restogo.model.User
 import okhttp3.Call
@@ -42,14 +40,14 @@ class CartActivity : Activity(), View.OnClickListener {
     private lateinit var tvTotalPrice: TextView
     private lateinit var adapter: CartAdapter
     private lateinit var requestQueue: com.android.volley.RequestQueue
-    private lateinit var couponCode: String
+    private var couponCode: String? = ""
     private var isCouponActive: Boolean = false
     private var couponDiscount: Float = 0.0f
-    private val API_URL = Env.apiUrl
+    private val API_URL: String = Env.apiUrl
     private val client = OkHttpClient()
-    private val ACCOUNT_SID = Env.ACCOUNT_SID
-    private val AUTH_TOKEN = Env.AUTH_TOKEN
-    private val TWILIO_SANDBOX_WHATSAPP_NUMBER = Env.TWILIO_SANDBOX_WHATSAPP_NUMBER
+    private val ACCOUNT_SID: String = Env.ACCOUNT_SID
+    private val AUTH_TOKEN: String = Env.AUTH_TOKEN
+    private val TWILIO_SANDBOX_WHATSAPP_NUMBER: String = Env.TWILIO_SANDBOX_WHATSAPP_NUMBER
     var stringResponseHeader = "================================\n" +
             "*RESTO GO*\n" +
             "_Cita Rasa Nusantara_\n" +
@@ -106,9 +104,9 @@ class CartActivity : Activity(), View.OnClickListener {
 
             R.id.btn_cart_apply -> {
                 // Handle coupon application
-                couponCode = edtCoupon.text.toString().trim()
-                if (couponCode.isNotEmpty()) {
-                    applyCoupon(couponCode)
+                this.couponCode = edtCoupon.text.toString().trim()
+                if (couponCode!!.isNotEmpty()) {
+                    applyCoupon(couponCode!!)
                 } else {
                     Toast.makeText(this, "Masukkan kode kupon!", Toast.LENGTH_SHORT).show()
                 }
@@ -117,7 +115,6 @@ class CartActivity : Activity(), View.OnClickListener {
             }
 
             R.id.btn_cart_kirim -> {
-                // Handle order submission
                 if (OrderObject.details.isNotEmpty()) {
                     submitOrder()
                 } else {
@@ -144,7 +141,7 @@ class CartActivity : Activity(), View.OnClickListener {
                 updateTotalPrice()
             } else {
                 Toast.makeText(this, "Kode tidak tersedia!", Toast.LENGTH_SHORT).show()
-                this.couponCode = null.toString()
+                this.couponCode = null
                 this.couponDiscount = 0.0f
                 this.isCouponActive = false
                 updateTotalPrice()
@@ -165,16 +162,16 @@ class CartActivity : Activity(), View.OnClickListener {
                 put("isAdmin", user.isAdmin)
             }
 
-//            val couponJson = JSONObject().apply {
-//                put("couponCode", couponCode)
-//                put("isActive", isCouponActive)
-//                put("discount", couponDiscount)
-//            }
-
             val couponJson = JSONObject().apply {
-                put("couponCode", "testing")
-                put("isActive", true)
-                put("discount", 10)
+                if (couponCode.isNullOrEmpty()) {
+                    put("couponCode", null)
+                    put("isActive", false)
+                    put("discount", 0)
+                } else {
+                    put("couponCode", couponCode)
+                    put("isActive", true)
+                    put("discount", couponDiscount)
+                }
             }
 
             val detailsJsonArray = JSONArray().apply {
@@ -223,12 +220,9 @@ class CartActivity : Activity(), View.OnClickListener {
                         "Berhasil menambah order!",
                         Toast.LENGTH_SHORT
                     ).show()
-//                    val intent = Intent(this, MainActivity::class.java)
-//                    startActivity(intent)
                     finish()
                 },
                 { error ->
-                    Log.e("API_ERROR", error.toString())
                     if (error.networkResponse != null) {
                         val statusCode = error.networkResponse.statusCode
                         val responseBody =
@@ -306,7 +300,6 @@ class CartActivity : Activity(), View.OnClickListener {
         val request = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
-                Log.d("API_RESPONSE", response.toString())
                 if (response.has("data")) {
                     this.couponDiscount =
                         response.getJSONObject("data").getInt("discount").toFloat()
@@ -350,6 +343,7 @@ class CartActivity : Activity(), View.OnClickListener {
 
     private fun sendMessage(to: String, message: String) {
         val url = "https://api.twilio.com/2010-04-01/Accounts/$ACCOUNT_SID/Messages.json"
+
         val body = FormBody.Builder()
             .add("To", "whatsapp:$to")
             .add("From", TWILIO_SANDBOX_WHATSAPP_NUMBER)
@@ -380,10 +374,9 @@ class CartActivity : Activity(), View.OnClickListener {
                         runOnUiThread {
                             Toast.makeText(
                                 applicationContext,
-                                "Failed to send message: ${it.body?.string()}",
+                                "Failed to send message!",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            Log.i("infoMessage", "Failed to send message: ${it.body?.string()}",)
                         }
                     } else {
                         runOnUiThread {
