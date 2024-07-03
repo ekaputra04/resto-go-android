@@ -67,6 +67,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_my_order_berlangsung" />
 
+        <TextView
+            android:id="@+id/tv_my_order_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:padding="16dp"
+            android:text="@string/tidak_ada_pesanan_berlangsung"
+            android:textAlignment="center"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_order_line" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_my_order_activity"
             android:layout_width="match_parent"
@@ -76,7 +89,7 @@
             android:paddingBottom="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_my_order_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_order_status"
             tools:listitem="@layout/item_my_orders" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

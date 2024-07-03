@@ -25,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MyOrderActivity : Activity(), View.OnClickListener {
     private lateinit var btnBack: ImageView
     private lateinit var tvOrderHistory: TextView
+    private lateinit var tvStatusPesanan: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var detailOrders: List<OrderMenuData>
     private lateinit var adapter: MyOrderAdapter
@@ -55,6 +56,7 @@ class MyOrderActivity : Activity(), View.OnClickListener {
 
     private fun initComponents() {
         btnBack = findViewById(R.id.img_my_order_activity_back)
+        tvStatusPesanan = findViewById(R.id.tv_my_order_status)
         tvOrderHistory = findViewById(R.id.tv_my_order_riwayat)
         recyclerView = findViewById(R.id.rv_my_order_activity)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -65,12 +67,12 @@ class MyOrderActivity : Activity(), View.OnClickListener {
             try {
                 val response = apiService.getMenusFromUserOrder(userId)
 
-                Log.i("detailOrders", response.data[1].menu.name)
-
-
                 if (response != null) {
                     withContext(Dispatchers.Main) {
                         detailOrders = response.data
+
+                        tvStatusPesanan.visibility = View.GONE
+
                         adapter = MyOrderAdapter(this@MyOrderActivity, detailOrders) { detailMenu ->
                             // Implementasikan aksi ketika item diklik
                         }
@@ -90,6 +92,7 @@ class MyOrderActivity : Activity(), View.OnClickListener {
         if (v?.id == R.id.tv_my_order_riwayat) {
             val intent = Intent(this, OrderHistoryActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

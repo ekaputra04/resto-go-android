@@ -19,4 +19,7 @@ interface ApiService {
 
     @GET("orders/menus/{userId}")
     suspend fun getMenusFromUserOrder(@Path("userId") userId: String): OrderMenuResponse
+
+    @GET("orders/history/{userId}")
+    suspend fun getMenusFromUserOrderHistory(@Path("userId") userId: String): OrderMenuResponse
 }
