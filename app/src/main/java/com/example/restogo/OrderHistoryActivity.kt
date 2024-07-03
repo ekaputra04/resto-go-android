@@ -82,7 +82,7 @@ class OrderHistoryActivity : Activity(), View.OnClickListener {
                 if (response != null) {
                     withContext(Dispatchers.Main) {
                         detailOrders = response.data
-                        tvOrderBerlangsung.visibility = View.GONE
+                        tvStatusPesanan.visibility = View.GONE
                         adapter = OrderHistoryAdapter(
                             this@OrderHistoryActivity,
                             detailOrders

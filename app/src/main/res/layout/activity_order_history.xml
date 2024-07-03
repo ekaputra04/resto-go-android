@@ -1,89 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingHorizontal="32dp"
-    android:paddingVertical="48dp"
-    tools:context=".OrderHistoryActivity">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/img_order_history_activity_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/back_dark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_order_history_pesanan_saya"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/poppins_semi_bold"
-        android:text="@string/pesanan_saya"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/img_order_history_activity_back"
-        app:layout_constraintStart_toEndOf="@id/img_order_history_activity_back"
-        app:layout_constraintTop_toTopOf="@id/img_order_history_activity_back" />
-
-    <TextView
-        android:id="@+id/tv_order_history_berlangsung"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/berlangsung"
-        android:textColor="@color/dark_gray"
-        app:layout_constraintEnd_toStartOf="@id/tv_order_history_riwayat"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_order_history_activity_back" />
-
-    <TextView
-        android:id="@+id/tv_order_history_riwayat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/riwayat"
-        android:textColor="@color/primary"
-        app:layout_constraintBottom_toBottomOf="@id/tv_order_history_berlangsung"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_order_history_berlangsung"
-        app:layout_constraintTop_toTopOf="@id/tv_order_history_berlangsung" />
-
-    <ImageView
-        android:id="@+id/tv_order_history_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/background_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_order_history_berlangsung" />
-
-    <TextView
-        android:id="@+id/tv_order_history_status"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:padding="16dp"
-        android:text="@string/tidak_ada_riwayat_pesanan"
-        android:textAlignment="center"
-        android:textColor="@color/primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_order_history_line" />
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="48dp"
+        tools:context=".OrderHistoryActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_order_history_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_order_history_status"
-        tools:listitem="@layout/item_my_orders" />
+        <ImageView
+            android:id="@+id/img_order_history_activity_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_dark"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_order_history_pesanan_saya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/pesanan_saya"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/img_order_history_activity_back"
+            app:layout_constraintStart_toEndOf="@id/img_order_history_activity_back"
+            app:layout_constraintTop_toTopOf="@id/img_order_history_activity_back" />
+
+        <TextView
+            android:id="@+id/tv_order_history_berlangsung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/berlangsung"
+            android:textColor="@color/dark_gray"
+            app:layout_constraintEnd_toStartOf="@id/tv_order_history_riwayat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_order_history_activity_back" />
+
+        <TextView
+            android:id="@+id/tv_order_history_riwayat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/riwayat"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_history_berlangsung"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_order_history_berlangsung"
+            app:layout_constraintTop_toTopOf="@id/tv_order_history_berlangsung" />
+
+        <ImageView
+            android:id="@+id/tv_order_history_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/background_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_history_berlangsung" />
+
+        <TextView
+            android:id="@+id/tv_order_history_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:padding="16dp"
+            android:text="@string/tidak_ada_riwayat_pesanan"
+            android:textAlignment="center"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_history_line" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_order_history_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_history_status"
+            tools:listitem="@layout/item_my_orders" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
