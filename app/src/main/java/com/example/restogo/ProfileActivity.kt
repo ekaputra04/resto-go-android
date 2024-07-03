@@ -127,41 +127,36 @@ class ProfileActivity : Activity(), View.OnClickListener {
         if (v?.id == R.id.btn_profile_back) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_name || v?.id == R.id.img_profile_icon_name) {
             val intent = Intent(this, UpdateNameUserActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_telephone || v?.id == R.id.img_profile_icon_telephone) {
             val intent = Intent(this, UpdateTelephoneUserActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_pesanan_saya || v?.id == R.id.img_profile_icon_pesanan_saya) {
-
+            val intent = Intent(this, MyOrderActivity::class.java)
+            startActivity(intent)
         }
 
         if (v?.id == R.id.btn_profile_detail_kategori_menu || v?.id == R.id.img_profile_icon_daftar_kategori_menu) {
             val intent = Intent(this, MenuCategoryActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_menu || v?.id == R.id.img_profile_icon_daftar_menu) {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_extra_menu || v?.id == R.id.img_profile_icon_daftar_extra_menu) {
             val intent = Intent(this, ExtraMenuActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         if (v?.id == R.id.btn_profile_detail_pelanggan || v?.id == R.id.img_profile_icon_daftar_pelanggan) {

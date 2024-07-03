@@ -21,7 +21,7 @@
             app:srcCompat="@drawable/nasi_tempe_bakar" />
 
         <TextView
-            android:id="@+id/tv_my_order_tanggal"
+            android:id="@+id/tv_item_my_order_tanggal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -43,10 +43,10 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/img_item_my_order"
-            app:layout_constraintTop_toBottomOf="@id/tv_my_order_tanggal" />
+            app:layout_constraintTop_toBottomOf="@id/tv_item_my_order_tanggal" />
 
         <TextView
-            android:id="@+id/tv_my_order_harga"
+            android:id="@+id/tv_item_my_order_harga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -59,7 +59,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_item_my_order_nama_menu" />
 
         <TextView
-            android:id="@+id/tv_my_order_banyak"
+            android:id="@+id/tv_item_my_order_banyak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -67,12 +67,12 @@
             android:text="@string/_1_item"
             android:textColor="@color/dark_gray"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_my_order_harga"
-            app:layout_constraintStart_toEndOf="@id/tv_my_order_harga"
-            app:layout_constraintTop_toTopOf="@id/tv_my_order_harga" />
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_my_order_harga"
+            app:layout_constraintStart_toEndOf="@id/tv_item_my_order_harga"
+            app:layout_constraintTop_toTopOf="@id/tv_item_my_order_harga" />
 
         <TextView
-            android:id="@+id/tv_my_order_extra_menu"
+            android:id="@+id/tv_item_my_order_extra_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -81,10 +81,23 @@
             android:text="@string/telur_rp_5000"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/img_item_my_order"
-            app:layout_constraintTop_toBottomOf="@id/tv_my_order_harga" />
+            app:layout_constraintTop_toBottomOf="@id/tv_item_my_order_harga" />
 
         <TextView
-            android:id="@+id/tv_my_order_status"
+            android:id="@+id/tv_item_my_order_subtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/total_rp_45_000"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/img_item_my_order"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_my_order_extra_menu" />
+
+        <TextView
+            android:id="@+id/tv_item_my_order_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -97,7 +110,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_my_order_extra_menu" />
+            app:layout_constraintTop_toBottomOf="@id/tv_item_my_order_subtotal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

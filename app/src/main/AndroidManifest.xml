@@ -67,7 +67,7 @@
             android:name=".OrderHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".MyOrdersActivity"
+            android:name=".MyOrderActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"

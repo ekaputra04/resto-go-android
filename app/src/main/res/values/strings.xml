@@ -105,9 +105,9 @@
     <string name="riwayat">Riwayat</string>
     <string name="rp10_000_x1">Rp10.000 | x1</string>
     <string name="_1_item">1 Item</string>
-    <string name="_">-</string>
     <string name="tanfa_min">-</string>
     <string name="tanda_min">-</string>
     <string name="sedang_dikerjakan_harap_menunggu">Sedang Dikerjakan, Harap Menunggu!</string>
     <string name="telur_rp_5000">Telur - Rp.5000</string>
+    <string name="total_rp_45_000">Total Rp.45.000</string>
 </resources>

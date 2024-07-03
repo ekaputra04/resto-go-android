@@ -48,13 +48,13 @@ class CouponAdapter(
 
             val currentDateTime = LocalDateTime.now()
 
-            val dateStarted = coupon.dateStarted.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime()
+            val dateStarted = coupon.dateStarted?.toInstant()
+                ?.atZone(ZoneId.systemDefault())
+                ?.toLocalDateTime()
 
-            val dateEnded = coupon.dateEnded.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime()
+            val dateEnded = coupon.dateEnded?.toInstant()
+                ?.atZone(ZoneId.systemDefault())
+                ?.toLocalDateTime()
 
             val isActive =
                 currentDateTime.isAfter(dateStarted) && currentDateTime.isBefore(dateEnded)

@@ -1,4 +1,15 @@
 package com.example.restogo.model
 
-class OrderMenuData {
-}
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+
+class OrderMenuData(
+    val menu: Menu,
+    val quantity: Int,
+    val extraMenu: ExtraMenu?,
+    val subTotalMenu: Float,
+    val date: String,
+    val isDone: Boolean
+) : Parcelable

@@ -9,7 +9,7 @@
     tools:context=".OrderHistoryActivity">
 
     <ImageView
-        android:id="@+id/img_my_order_activity_back"
+        android:id="@+id/img_order_history_activity_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/back_dark"
@@ -18,50 +18,50 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_my_order_pesanan_saya"
+        android:id="@+id/tv_order_history_pesanan_saya"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/poppins_semi_bold"
         android:text="@string/pesanan_saya"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/img_my_order_activity_back"
-        app:layout_constraintStart_toEndOf="@id/img_my_order_activity_back"
-        app:layout_constraintTop_toTopOf="@id/img_my_order_activity_back" />
+        app:layout_constraintBottom_toBottomOf="@id/img_order_history_activity_back"
+        app:layout_constraintStart_toEndOf="@id/img_order_history_activity_back"
+        app:layout_constraintTop_toTopOf="@id/img_order_history_activity_back" />
 
     <TextView
-        android:id="@+id/tv_my_order_berlangsung"
+        android:id="@+id/tv_order_history_berlangsung"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/berlangsung"
         android:textColor="@color/dark_gray"
-        app:layout_constraintEnd_toStartOf="@id/tv_my_order_riwayat"
+        app:layout_constraintEnd_toStartOf="@id/tv_order_history_riwayat"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_my_order_activity_back" />
+        app:layout_constraintTop_toBottomOf="@id/img_order_history_activity_back" />
 
     <TextView
-        android:id="@+id/tv_my_order_riwayat"
+        android:id="@+id/tv_order_history_riwayat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/riwayat"
         android:textColor="@color/primary"
-        app:layout_constraintBottom_toBottomOf="@id/tv_my_order_berlangsung"
+        app:layout_constraintBottom_toBottomOf="@id/tv_order_history_berlangsung"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_my_order_berlangsung"
-        app:layout_constraintTop_toTopOf="@id/tv_my_order_berlangsung" />
+        app:layout_constraintStart_toEndOf="@id/tv_order_history_berlangsung"
+        app:layout_constraintTop_toTopOf="@id/tv_order_history_berlangsung" />
 
     <ImageView
-        android:id="@+id/tv_my_order_line"
+        android:id="@+id/tv_order_history_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_my_order_berlangsung" />
+        app:layout_constraintTop_toBottomOf="@id/tv_order_history_berlangsung" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -69,7 +69,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_my_order_line"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_history_line"
         tools:listitem="@layout/item_my_orders" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

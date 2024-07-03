@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="32dp"
     android:paddingVertical="48dp"
-    tools:context=".MyOrdersActivity">
+    tools:context=".MyOrderActivity">
 
     <ImageView
         android:id="@+id/img_my_order_activity_back"
@@ -64,6 +64,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_my_order_berlangsung" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_my_order_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

@@ -101,8 +101,6 @@ class CartActivity : Activity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_cart_back -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
                 finish()
             }
 
@@ -139,13 +137,16 @@ class CartActivity : Activity(), View.OnClickListener {
                 ).show()
 
                 OrderObject.coupon?.couponCode = couponCode
-//                OrderObject.coupon?.isActive = true
                 OrderObject.coupon?.discount = couponDiscount
+                this.couponCode = couponCode
+                this.isCouponActive = true
 
                 updateTotalPrice()
             } else {
                 Toast.makeText(this, "Kode tidak tersedia!", Toast.LENGTH_SHORT).show()
-                couponDiscount = 0.0f
+                this.couponCode = null.toString()
+                this.couponDiscount = 0.0f
+                this.isCouponActive = false
                 updateTotalPrice()
             }
         }
@@ -164,13 +165,17 @@ class CartActivity : Activity(), View.OnClickListener {
                 put("isAdmin", user.isAdmin)
             }
 
-            val couponJson = JSONObject().apply {
-                put("couponCode", couponCode)
-                put("isActive", isCouponActive)
-                put("discount", couponDiscount)
-            }
+//            val couponJson = JSONObject().apply {
+//                put("couponCode", couponCode)
+//                put("isActive", isCouponActive)
+//                put("discount", couponDiscount)
+//            }
 
-            Log.i("infoApk", couponJson.toString())
+            val couponJson = JSONObject().apply {
+                put("couponCode", "testing")
+                put("isActive", true)
+                put("discount", 10)
+            }
 
             val detailsJsonArray = JSONArray().apply {
                 OrderObject.details.forEach { detail ->
@@ -218,8 +223,8 @@ class CartActivity : Activity(), View.OnClickListener {
                         "Berhasil menambah order!",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(this, MainActivity::class.java)
+//                    startActivity(intent)
                     finish()
                 },
                 { error ->
@@ -241,8 +246,6 @@ class CartActivity : Activity(), View.OnClickListener {
                 }
             )
             requestQueue.add(submitRequest)
-
-            Toast.makeText(this, "Order berhasil dipesan!", Toast.LENGTH_SHORT).show()
 
             // Prepare the message for WhatsApp
             val stringBuilder = StringBuilder()
@@ -305,17 +308,17 @@ class CartActivity : Activity(), View.OnClickListener {
             { response ->
                 Log.d("API_RESPONSE", response.toString())
                 if (response.has("data")) {
-                    couponDiscount = response.getJSONObject("data").getInt("discount").toFloat()
-                    isCouponActive = true
+                    this.couponDiscount =
+                        response.getJSONObject("data").getInt("discount").toFloat()
+                    this.isCouponActive = true
 
                     OrderObject.coupon?.couponCode = couponCode
-//                    OrderObject.coupon?.isActive = true
                     OrderObject.coupon?.discount = couponDiscount
 
                     callback(true)
                 } else {
-                    couponDiscount = 0.0f
-                    isCouponActive = false
+                    this.couponDiscount = 0.0f
+                    this.isCouponActive = false
                     callback(false)
                 }
             },
@@ -380,6 +383,7 @@ class CartActivity : Activity(), View.OnClickListener {
                                 "Failed to send message: ${it.body?.string()}",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            Log.i("infoMessage", "Failed to send message: ${it.body?.string()}",)
                         }
                     } else {
                         runOnUiThread {
@@ -396,11 +400,10 @@ class CartActivity : Activity(), View.OnClickListener {
     }
 
     fun formatPhoneNumber(phoneNumber: String): String {
-        // Check if the phone number starts with "0" and replace it with "+62"
         return if (phoneNumber.startsWith("0")) {
             "+62" + phoneNumber.substring(1)
         } else {
-            phoneNumber // Return the original number if it does not start with "0"
+            phoneNumber
         }
     }
 }

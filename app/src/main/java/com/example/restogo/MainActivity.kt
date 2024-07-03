@@ -77,6 +77,17 @@ class MainActivity : Activity(), View.OnClickListener {
         fetchMenus()
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateUIUser()
+        updateUIMenuCategories()
+        updateUIMenus(menus)
+        updateUICart()
+
+        fetchCategories()
+        fetchMenus()
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_home_profile -> {
