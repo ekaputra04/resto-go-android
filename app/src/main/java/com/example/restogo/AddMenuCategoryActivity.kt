@@ -94,8 +94,6 @@ class AddMenuCategoryActivity : Activity(), View.OnClickListener {
                                 "Berhasil menambah kategori menu!",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            val intent = Intent(this, MenuCategoryActivity::class.java)
-                            startActivity(intent)
                             finish()
                         },
                         { error ->
@@ -122,8 +120,6 @@ class AddMenuCategoryActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.img_add_menu_category_back) {
-            val intent = Intent(this, MenuCategoryActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }

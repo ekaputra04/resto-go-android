@@ -1,7 +1,6 @@
 package com.example.restogo
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -27,8 +26,8 @@ class UpdateMenuCategoryActivity : Activity(), View.OnClickListener {
     private lateinit var btnSimpan: Button
     private lateinit var btnBack: ImageView
     private lateinit var requestQueue: RequestQueue
-    private val API_URL = Env.apiUrl
     private lateinit var menuCategory: MenuCategory
+    private val API_URL = Env.apiUrl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +61,6 @@ class UpdateMenuCategoryActivity : Activity(), View.OnClickListener {
                 if (response.has("message") && response.getString("message") == "Berhasil mengedit kategori menu!") {
                     Toast.makeText(this, "Berhasil mengupdate kategori menu!", Toast.LENGTH_SHORT)
                         .show()
-                    val intent = Intent(this, MenuCategoryActivity::class.java)
-                    startActivity(intent)
                     finish()
                 } else {
                     Toast.makeText(this, "Gagal mengupdate kategori menu!", Toast.LENGTH_SHORT)
@@ -138,8 +135,6 @@ class UpdateMenuCategoryActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.img_update_menu_category_back) {
-            val intent = Intent(this, MenuCategoryActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }

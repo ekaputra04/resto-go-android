@@ -104,7 +104,6 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
                             putExtra(UpdateMenuCategoryActivity.EXTRA_MENU_CATEGORY, category)
                         }
                         startActivity(intent)
-                        finish()
                     }
                     1 -> {
                         // Handle delete category
@@ -177,13 +176,11 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (v?.id == R.id.btn_menu_category_add) {
             val intent = Intent(this, AddMenuCategoryActivity::class.java)
-            startActivityForResult(intent, 1) // Start AddMenuCategoryActivity
+            startActivityForResult(intent, 1)
 
         }
 
         if (v?.id == R.id.img_menu_back) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }
@@ -192,7 +189,7 @@ class MenuCategoryActivity : Activity(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 || requestCode == 2) {
             if (resultCode == RESULT_OK) {
-                fetchCategories() // Fetch categories when returning from add or update
+                fetchCategories()
             }
         }
     }
