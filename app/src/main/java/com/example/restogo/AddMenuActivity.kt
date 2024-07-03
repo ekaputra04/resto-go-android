@@ -180,8 +180,6 @@ class AddMenuActivity : Activity(), View.OnClickListener {
                                     "Berhasil menambah menu!",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                val intent = Intent(this, MenuActivity::class.java)
-                                startActivity(intent)
                                 finish()
                             },
                             { error ->
@@ -212,8 +210,6 @@ class AddMenuActivity : Activity(), View.OnClickListener {
 //            }
 
             R.id.img_add_menu_activity_back -> {
-                val intent = Intent(this, MenuActivity::class.java)
-                startActivity(intent)
                 finish()
             }
         }

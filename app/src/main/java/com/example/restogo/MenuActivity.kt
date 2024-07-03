@@ -104,7 +104,6 @@ class MenuActivity : Activity(), View.OnClickListener {
                             putExtra(UpdateMenuActivity.EXTRA_MENU, menu)
                         }
                         startActivity(intent)
-                        finish()
                     }
 
                     1 -> {
@@ -183,8 +182,6 @@ class MenuActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.img_menu_activity_back) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }

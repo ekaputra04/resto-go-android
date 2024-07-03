@@ -76,9 +76,6 @@
             android:name=".CartActivity"
             android:exported="false" />
         <activity
-            android:name=".FoodDetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
@@ -89,9 +86,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".SplashScreenActivity" -->
-        <!-- android:exported="false" /> -->
+            android:exported="false" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"

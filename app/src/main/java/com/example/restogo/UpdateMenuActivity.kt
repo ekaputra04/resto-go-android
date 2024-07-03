@@ -168,7 +168,7 @@ class UpdateMenuActivity : Activity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if (v?.id == R.id.btn_update_menu_category_simpan) {
+        if (v?.id == R.id.btn_update_menu_activity_simpan) {
             name = edtName.text.toString().trim()
             price = edtPrice.text.toString().trim()
 
