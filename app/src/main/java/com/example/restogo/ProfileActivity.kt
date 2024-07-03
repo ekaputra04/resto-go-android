@@ -169,7 +169,6 @@ class ProfileActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.img_profile_icon_logout || v?.id == R.id.btn_profile_detail_logout) {
-//            Reset semua data
             OrderObject.user = null
             OrderObject.coupon = null
             OrderObject.totalPrice = 0.0f

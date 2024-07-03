@@ -59,8 +59,6 @@ class UpdateExtraMenusActivity : Activity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.img_update_extra_menu_activity_back) {
-            val intent = Intent(this, ExtraMenuActivity::class.java)
-            startActivity(intent)
             finish()
         }
 
@@ -104,8 +102,6 @@ class UpdateExtraMenusActivity : Activity(), View.OnClickListener {
                 if (response.has("message") && response.getString("message") == "Berhasil mengedit extra menu!") {
                     Toast.makeText(this, "Berhasil mengupdate extra menu!", Toast.LENGTH_SHORT)
                         .show()
-                    val intent = Intent(this, ExtraMenuActivity::class.java)
-                    startActivity(intent)
                     finish()
                 } else {
                     Toast.makeText(this, "Gagal mengupdate extra menu!", Toast.LENGTH_SHORT)

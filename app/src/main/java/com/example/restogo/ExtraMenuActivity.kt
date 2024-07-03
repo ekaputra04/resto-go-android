@@ -63,7 +63,7 @@ class ExtraMenuActivity : Activity(), View.OnClickListener {
         btnTambahExtraMenu = findViewById(R.id.btn_extra_menu_activity_add)
         btnKembali = findViewById(R.id.img_extra_menu_activity_back)
         recyclerView = findViewById(R.id.rv_extra_menu_activity)
-        requestQueue = Volley.newRequestQueue(this) // Inisialisasi requestQueue
+        requestQueue = Volley.newRequestQueue(this)
     }
 
     override fun onClick(v: View?) {
@@ -73,9 +73,13 @@ class ExtraMenuActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.img_extra_menu_activity_back) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchExtraMenus()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -114,7 +118,6 @@ class ExtraMenuActivity : Activity(), View.OnClickListener {
                             putExtra(UpdateExtraMenusActivity.EXTRA_MENU, extraMenu)
                         }
                         startActivity(intent)
-                        finish()
                     }
 
                     1 -> {

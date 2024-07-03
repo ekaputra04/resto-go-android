@@ -1,8 +1,6 @@
 package com.example.restogo
 
 import android.app.Activity
-import android.app.ProgressDialog
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -86,8 +84,6 @@ class AddExtraMenusActivity : Activity(), View.OnClickListener {
                                     "Berhasil menambah extra menu!",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                val intent = Intent(this, ExtraMenuActivity::class.java)
-                                startActivity(intent)
                                 finish()
                             },
                             { error ->
@@ -114,8 +110,6 @@ class AddExtraMenusActivity : Activity(), View.OnClickListener {
             }
 
             R.id.img_add_extra_menu_activity_back -> {
-                val intent = Intent(this, ExtraMenuActivity::class.java)
-                startActivity(intent)
                 finish()
             }
         }
