@@ -112,4 +112,6 @@
     <string name="total_rp_45_000">Total Rp.45.000</string>
     <string name="tidak_ada_pesanan_berlangsung">Tidak Ada Pesanan Berlangsung</string>
     <string name="tidak_ada_riwayat_pesanan">Tidak Ada Riwayat Pesanan</string>
+    <string name="pemesanan_berhasil">Pemesanan Berhasil</string>
+    <string name="kembali">Kembali</string>
 </resources>
