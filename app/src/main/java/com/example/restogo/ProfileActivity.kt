@@ -24,7 +24,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
     private lateinit var btnShowMenuCategories: ImageView
     private lateinit var btnShowMenus: ImageView
     private lateinit var btnShowExtraMenus: ImageView
-    private lateinit var btnShowUsers: ImageView
+//    private lateinit var btnShowUsers: ImageView
     private lateinit var btnShowCoupons: ImageView
     private lateinit var imgNameDetail: ImageView
     private lateinit var imgTelephoneDetail: ImageView
@@ -32,14 +32,14 @@ class ProfileActivity : Activity(), View.OnClickListener {
     private lateinit var imgMenuCategoriesDetail: ImageView
     private lateinit var imgMenusDetail: ImageView
     private lateinit var imgExtraMenusDetail: ImageView
-    private lateinit var imgUsersDetail: ImageView
+//    private lateinit var imgUsersDetail: ImageView
     private lateinit var imgCouponsDetail: ImageView
     private lateinit var imgLogout: ImageView
     private lateinit var imgLogoutDetail: ImageView
     private lateinit var tvMenuCategories: TextView
     private lateinit var tvMenus: TextView
     private lateinit var tvExtraMenus: TextView
-    private lateinit var tvDaftarUsers: TextView
+//    private lateinit var tvDaftarUsers: TextView
     private lateinit var tvDaftarCoupons: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,19 +57,19 @@ class ProfileActivity : Activity(), View.OnClickListener {
             imgMenuCategoriesDetail.visibility = View.GONE
             imgMenusDetail.visibility = View.GONE
             imgExtraMenusDetail.visibility = View.GONE
-            imgUsersDetail.visibility = View.GONE
+//            imgUsersDetail.visibility = View.GONE
             imgCouponsDetail.visibility = View.GONE
 
             tvMenuCategories.visibility = View.GONE
             tvMenus.visibility = View.GONE
             tvExtraMenus.visibility = View.GONE
-            tvDaftarUsers.visibility = View.GONE
+//            tvDaftarUsers.visibility = View.GONE
             tvDaftarCoupons.visibility = View.GONE
 
             btnShowMenuCategories.visibility = View.GONE
             btnShowMenus.visibility = View.GONE
             btnShowExtraMenus.visibility = View.GONE
-            btnShowUsers.visibility = View.GONE
+//            btnShowUsers.visibility = View.GONE
             btnShowCoupons.visibility = View.GONE
         }
 
@@ -80,7 +80,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
         btnShowMenuCategories.setOnClickListener(this)
         btnShowMenus.setOnClickListener(this)
         btnShowExtraMenus.setOnClickListener(this)
-        btnShowUsers.setOnClickListener(this)
+//        btnShowUsers.setOnClickListener(this)
         btnShowCoupons.setOnClickListener(this)
         imgLogout.setOnClickListener(this)
         imgLogoutDetail.setOnClickListener(this)
@@ -99,7 +99,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
         imgMenuCategoriesDetail = findViewById(R.id.img_profile_icon_daftar_kategori_menu)
         imgMenusDetail = findViewById(R.id.img_profile_icon_daftar_menu)
         imgExtraMenusDetail = findViewById(R.id.img_profile_icon_daftar_extra_menu)
-        imgUsersDetail = findViewById(R.id.img_profile_icon_daftar_pelanggan)
+//        imgUsersDetail = findViewById(R.id.img_profile_icon_daftar_pelanggan)
         imgCouponsDetail = findViewById(R.id.img_profile_icon_daftar_kupon)
         imgLogout = findViewById(R.id.img_profile_icon_logout)
 
@@ -112,14 +112,14 @@ class ProfileActivity : Activity(), View.OnClickListener {
         btnShowMenuCategories = findViewById(R.id.btn_profile_detail_kategori_menu)
         btnShowMenus = findViewById(R.id.btn_profile_detail_menu)
         btnShowExtraMenus = findViewById(R.id.btn_profile_detail_extra_menu)
-        btnShowUsers = findViewById(R.id.btn_profile_detail_pelanggan)
+//        btnShowUsers = findViewById(R.id.btn_profile_detail_pelanggan)
         btnShowCoupons = findViewById(R.id.btn_profile_detail_kupon)
         imgLogoutDetail = findViewById(R.id.btn_profile_detail_logout)
 
         tvMenuCategories = findViewById(R.id.tv_profile_kategori_menu)
         tvMenus = findViewById(R.id.tv_profile_daftar_menu)
         tvExtraMenus = findViewById(R.id.tv_profile_extra_menu)
-        tvDaftarUsers = findViewById(R.id.tv_profile_daftar_pelanggan)
+//        tvDaftarUsers = findViewById(R.id.tv_profile_daftar_pelanggan)
         tvDaftarCoupons = findViewById(R.id.tv_profile_daftar_kupon)
     }
 
@@ -159,9 +159,9 @@ class ProfileActivity : Activity(), View.OnClickListener {
             startActivity(intent)
         }
 
-        if (v?.id == R.id.btn_profile_detail_pelanggan || v?.id == R.id.img_profile_icon_daftar_pelanggan) {
-
-        }
+//        if (v?.id == R.id.btn_profile_detail_pelanggan || v?.id == R.id.img_profile_icon_daftar_pelanggan) {
+//
+//        }
 
         if (v?.id == R.id.btn_profile_detail_kupon || v?.id == R.id.img_profile_icon_daftar_kupon) {
             val intent = Intent(this, CouponActivity::class.java)

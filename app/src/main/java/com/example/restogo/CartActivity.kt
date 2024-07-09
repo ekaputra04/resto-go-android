@@ -221,9 +221,9 @@ class CartActivity : Activity(), View.OnClickListener {
                         "Berhasil menambah order!",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this, SuccessOrderActivity::class.java)
-                    startActivity(intent)
-                    finish()
+//                    val intent = Intent(this, SuccessOrderActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
                 },
                 { error ->
                     if (error.networkResponse != null) {
@@ -292,6 +292,8 @@ class CartActivity : Activity(), View.OnClickListener {
             OrderObject.totalPrice = 0.0f
             OrderObject.details = emptyList()
 
+            val intent = Intent(this, SuccessOrderActivity::class.java)
+            startActivity(intent)
             finish()
         } else {
             Toast.makeText(this, "User not found in preferences", Toast.LENGTH_SHORT).show()
@@ -368,6 +370,8 @@ class CartActivity : Activity(), View.OnClickListener {
                         "Failed to send message: ${e.message}",
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    Log.i("infoMessage", e.message.toString())
                 }
             }
 
@@ -377,7 +381,7 @@ class CartActivity : Activity(), View.OnClickListener {
                         runOnUiThread {
                             Toast.makeText(
                                 applicationContext,
-                                "Failed to send message!",
+                                "Gagal mengirim pesan!",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
