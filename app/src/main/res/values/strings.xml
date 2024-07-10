@@ -116,4 +116,6 @@
     <string name="kembali">Kembali</string>
     <string name="daftar_pengguna">Daftar Pengguna</string>
     <string name="tambah_pengguna">Tambah Pengguna</string>
+    <string name="status">Status</string>
+    <string name="daftar_pesanan">Daftar Pesanan</string>
 </resources>

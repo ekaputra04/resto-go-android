@@ -20,6 +20,12 @@ interface ApiService {
     @GET("coupons")
     suspend fun getCoupons(): CouponResponse
 
+    @GET("orders/done")
+    suspend fun getAllOrdersDone(): AllOrderResponse
+
+    @GET("orders/not-done")
+    suspend fun getAllOrdersNotDone(): AllOrderResponse
+
     @GET("orders/menus/{userId}")
     suspend fun getMenusFromUserOrder(@Path("userId") userId: String): OrderMenuResponse
 

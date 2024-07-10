@@ -321,36 +321,36 @@
 
             <!-- detail pelanggan start (admin only) -->
 
-                        <ImageView
-                            android:id="@+id/img_profile_icon_daftar_pelanggan"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="16dp"
-                            android:src="@drawable/icon_pesanan_saya"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/img_profile_icon_daftar_extra_menu" />
+            <ImageView
+                android:id="@+id/img_profile_icon_daftar_pelanggan"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_pesanan_saya"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_profile_icon_daftar_extra_menu" />
 
-                        <TextView
-                            android:id="@+id/tv_profile_daftar_pelanggan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:fontFamily="@font/poppins_semi_bold"
-                            android:text="@string/daftar_pelanggan"
-                            android:textColor="@color/dark_gray"
-                            android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@id/img_profile_icon_daftar_pelanggan"
-                            app:layout_constraintStart_toEndOf="@id/img_profile_icon_daftar_pelanggan"
-                            app:layout_constraintTop_toTopOf="@id/img_profile_icon_daftar_pelanggan" />
+            <TextView
+                android:id="@+id/tv_profile_daftar_pelanggan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/daftar_pelanggan"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/img_profile_icon_daftar_pelanggan"
+                app:layout_constraintStart_toEndOf="@id/img_profile_icon_daftar_pelanggan"
+                app:layout_constraintTop_toTopOf="@id/img_profile_icon_daftar_pelanggan" />
 
-                        <ImageView
-                            android:id="@+id/btn_profile_detail_pelanggan"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/panah_kanan_oranye"
-                            app:layout_constraintBottom_toBottomOf="@id/img_profile_icon_daftar_pelanggan"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/img_profile_icon_daftar_pelanggan" />
+            <ImageView
+                android:id="@+id/btn_profile_detail_pelanggan"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/panah_kanan_oranye"
+                app:layout_constraintBottom_toBottomOf="@id/img_profile_icon_daftar_pelanggan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/img_profile_icon_daftar_pelanggan" />
 
             <!-- detail pelanggan end (admin only) -->
 
@@ -389,6 +389,41 @@
 
             <!-- detail kupon end (admin only) -->
 
+            <!-- detail pesanan start (admin only) -->
+
+            <ImageView
+                android:id="@+id/img_profile_icon_daftar_pesanan"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_pesanan_saya"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_profile_icon_daftar_kupon" />
+
+            <TextView
+                android:id="@+id/tv_profile_daftar_pesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/daftar_pesanan"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/img_profile_icon_daftar_pesanan"
+                app:layout_constraintStart_toEndOf="@id/img_profile_icon_daftar_pesanan"
+                app:layout_constraintTop_toTopOf="@id/img_profile_icon_daftar_pesanan" />
+
+            <ImageView
+                android:id="@+id/btn_profile_detail_pesanan"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/panah_kanan_oranye"
+                app:layout_constraintBottom_toBottomOf="@id/img_profile_icon_daftar_pesanan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/img_profile_icon_daftar_pesanan" />
+
+            <!-- detail pesanan end (admin only) -->
+
             <!-- logout start -->
 
             <ImageView
@@ -398,7 +433,7 @@
                 android:layout_marginTop="16dp"
                 android:src="@drawable/icon_keluar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_profile_icon_daftar_kupon" />
+                app:layout_constraintTop_toBottomOf="@+id/img_profile_icon_daftar_pesanan" />
 
             <TextView
                 android:id="@+id/tv_profile_logout"

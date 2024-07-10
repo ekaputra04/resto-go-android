@@ -6,7 +6,9 @@ import java.util.Date
 
 @Parcelize
 data class Order(
+    var _id: String?,
     var userId: String,
+    var user: User?,
     var coupon: Coupon?,
     var totalPrice: Float,
     var date: Date = Date(),

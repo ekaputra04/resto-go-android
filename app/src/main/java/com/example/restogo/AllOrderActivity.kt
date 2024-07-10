@@ -3,10 +3,12 @@ package com.example.restogo
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.media.tv.TvContentRating
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +16,7 @@ import com.android.volley.AuthFailureError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.restogo.model.ApiService
+import com.example.restogo.model.Order
 import com.example.restogo.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,13 +26,15 @@ import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class UsersActivity : Activity(), View.OnClickListener {
+class AllOrderActivity : Activity(), View.OnClickListener {
     private lateinit var imgBack: ImageView
+    private lateinit var tvRiwayat: TextView
     private lateinit var recycleView: RecyclerView
-    private lateinit var adapter: UserAdapter
+    private lateinit var tvTidakTersedia: TextView
+    private lateinit var adapter: AllOrderAdapter
     private lateinit var requestQueue: com.android.volley.RequestQueue
     private val API_URL = Env.apiUrl
-    private val users = mutableListOf<User>()
+    private val orders = mutableListOf<Order>()
 
     private val apiService: ApiService by lazy {
         Retrofit.Builder()
@@ -41,62 +46,51 @@ class UsersActivity : Activity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_users)
+        setContentView(R.layout.activity_all_order)
         initComponents()
+
         recycleView.layoutManager = LinearLayoutManager(this)
 
         updateUIRecycleView()
 
-//        adapter = UserAdapter(users) { user ->
-//            showUpdateDialog(user)
-//        }
-//        recycleView.adapter = adapter
-//
-//        fetchUsers()
-
         imgBack.setOnClickListener(this)
-    }
-
-    private fun updateUIRecycleView() {
-        adapter = UserAdapter(users) { user ->
-            showUpdateDialog(user)
-        }
-        recycleView.adapter = adapter
-
-        fetchUsers()
-    }
-
-    private fun initComponents() {
-        imgBack = findViewById(R.id.img_user_activity_back)
-        recycleView = findViewById(R.id.rv_user_activity)
-        requestQueue = Volley.newRequestQueue(this)
-    }
-
-    override fun onClick(v: View?) {
-        if (v?.id == R.id.img_user_activity_back) {
-            finish()
-        }
     }
 
     override fun onResume() {
         super.onResume()
-        fetchUsers()
+        fetchOrders()
+
     }
 
-    private fun fetchUsers() {
+    private fun initComponents() {
+        imgBack = findViewById(R.id.img_all_order_activity_back)
+        tvRiwayat = findViewById(R.id.tv_all_order_riwayat)
+        recycleView = findViewById(R.id.rv_all_order_activity)
+        tvTidakTersedia = findViewById(R.id.tv_all_order_status)
+        requestQueue = Volley.newRequestQueue(this)
+    }
+
+    override fun onClick(v: View?) {
+        if (v?.id == R.id.img_all_order_activity_back) {
+            finish()
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun fetchOrders() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = apiService.getUsers()
+                val response = apiService.getAllOrdersNotDone()
                 withContext(Dispatchers.Main) {
-                    users.clear()
-                    users.addAll(response.data)
+                    orders.clear()
+                    orders.addAll(response.data)
                     adapter.notifyDataSetChanged()
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
-                        this@UsersActivity,
-                        "Failed to fetch users",
+                        this@AllOrderActivity,
+                        "Failed to fetch orders",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -104,21 +98,35 @@ class UsersActivity : Activity(), View.OnClickListener {
         }
     }
 
+    private fun updateUIRecycleView() {
+        fetchOrders()
+
+        if (orders.isNotEmpty()) {
+            tvTidakTersedia.visibility = View.GONE
+        }
+
+        adapter = AllOrderAdapter(orders) { order ->
+            showUpdateDialog(order)
+        }
+        recycleView.adapter = adapter
+
+    }
+
     @SuppressLint("NotifyDataSetChanged")
-    private fun showUpdateDialog(user: User) {
-        val options = arrayOf("Admin", "Pelanggan")
+    private fun showUpdateDialog(order: Order) {
+        val options = arrayOf("Selesai", "Belum Selesai")
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Edit Role: ${user.name}")
+        builder.setTitle("Edit Order: ")
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> {
-                        updateRoleUser(user._id, true)
-                        updateUIRecycleView()
+                        updateOrderStatus(order._id, true)
+//                        updateUIRecycleView()
                     }
 
                     1 -> {
-                        updateRoleUser(user._id, false)
-                        updateUIRecycleView()
+                        updateOrderStatus(order._id, false)
+//                        updateUIRecycleView()
                     }
                 }
             }
@@ -126,10 +134,10 @@ class UsersActivity : Activity(), View.OnClickListener {
         dialog.show()
     }
 
-    private fun updateRoleUser(userId: String, isAdmin: Boolean) {
-        val url = "$API_URL/users/role/$userId"
+    private fun updateOrderStatus(orderId: String?, isDone: Boolean) {
+        val url = "$API_URL/orders/update-order/$orderId"
         val params = JSONObject().apply {
-            put("isAdmin", isAdmin)
+            put("isDone", isDone)
         }
 
         val request = object : JsonObjectRequest(
@@ -138,11 +146,11 @@ class UsersActivity : Activity(), View.OnClickListener {
             params,
             { response ->
                 Log.d("API_RESPONSE", response.toString())
-                if (response.has("message") && response.getString("message") == "Berhasil mengedit role user!") {
-                    Toast.makeText(this, "Berhasil mengedit role user!", Toast.LENGTH_SHORT)
+                if (response.has("message") && response.getString("message") == "Berhasil memperbarui status order!") {
+                    Toast.makeText(this, "Berhasil memperbarui status order!", Toast.LENGTH_SHORT)
                         .show()
                 } else {
-                    Toast.makeText(this, "Gagal mengedit role user!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "Gagal memperbarui status order!", Toast.LENGTH_SHORT)
                         .show()
                 }
             },

@@ -26,6 +26,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
     private lateinit var btnShowExtraMenus: ImageView
     private lateinit var btnShowUsers: ImageView
     private lateinit var btnShowCoupons: ImageView
+    private lateinit var btnShowAllOrders: ImageView
     private lateinit var imgNameDetail: ImageView
     private lateinit var imgTelephoneDetail: ImageView
     private lateinit var imgMyOrdersDetail: ImageView
@@ -34,6 +35,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
     private lateinit var imgExtraMenusDetail: ImageView
     private lateinit var imgUsersDetail: ImageView
     private lateinit var imgCouponsDetail: ImageView
+    private lateinit var imgAllOrdersDetail: ImageView
     private lateinit var imgLogout: ImageView
     private lateinit var imgLogoutDetail: ImageView
     private lateinit var tvMenuCategories: TextView
@@ -82,6 +84,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
         btnShowExtraMenus.setOnClickListener(this)
         btnShowUsers.setOnClickListener(this)
         btnShowCoupons.setOnClickListener(this)
+        btnShowAllOrders.setOnClickListener(this)
         imgLogout.setOnClickListener(this)
         imgLogoutDetail.setOnClickListener(this)
     }
@@ -101,6 +104,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
         imgExtraMenusDetail = findViewById(R.id.img_profile_icon_daftar_extra_menu)
         imgUsersDetail = findViewById(R.id.img_profile_icon_daftar_pelanggan)
         imgCouponsDetail = findViewById(R.id.img_profile_icon_daftar_kupon)
+        imgAllOrdersDetail = findViewById(R.id.img_profile_icon_daftar_pesanan)
         imgLogout = findViewById(R.id.img_profile_icon_logout)
 
         tvNameProfileDetail = findViewById(R.id.tv_profile_description_name)
@@ -114,6 +118,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
         btnShowExtraMenus = findViewById(R.id.btn_profile_detail_extra_menu)
         btnShowUsers = findViewById(R.id.btn_profile_detail_pelanggan)
         btnShowCoupons = findViewById(R.id.btn_profile_detail_kupon)
+        btnShowAllOrders = findViewById(R.id.btn_profile_detail_pesanan)
         imgLogoutDetail = findViewById(R.id.btn_profile_detail_logout)
 
         tvMenuCategories = findViewById(R.id.tv_profile_kategori_menu)
@@ -160,12 +165,17 @@ class ProfileActivity : Activity(), View.OnClickListener {
         }
 
         if (v?.id == R.id.btn_profile_detail_pelanggan || v?.id == R.id.img_profile_icon_daftar_pelanggan) {
-            val intent = Intent(this, UsersActivity::class.java)
+            val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
 
         if (v?.id == R.id.btn_profile_detail_kupon || v?.id == R.id.img_profile_icon_daftar_kupon) {
             val intent = Intent(this, CouponActivity::class.java)
+            startActivity(intent)
+        }
+
+        if (v?.id == R.id.btn_profile_detail_pesanan || v?.id == R.id.img_profile_icon_daftar_pesanan) {
+            val intent = Intent(this, AllOrderActivity::class.java)
             startActivity(intent)
         }
 

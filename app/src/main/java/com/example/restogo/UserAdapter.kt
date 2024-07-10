@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.restogo.model.Menu
 import com.example.restogo.model.User
 
 class UserAdapter(private val menuList: List<User>, private val onItemClick: (User) -> Unit) :
