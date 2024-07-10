@@ -50,7 +50,7 @@ class AllOrderAdapter(
                 detail.extraMenu?.let { extra ->
                     stringBuilder.append(" - ${extra.name}")
                 }
-                stringBuilder.append("\n)")
+                stringBuilder.append("\n")
             }
 
             dateTextView.text = order.date.toString()

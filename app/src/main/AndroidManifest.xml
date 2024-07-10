@@ -19,6 +19,9 @@
         android:theme="@style/Theme.RestoGo"
         tools:targetApi="31">
         <activity
+            android:name=".AllOrderHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".AllOrderActivity"
             android:exported="false" />
         <activity

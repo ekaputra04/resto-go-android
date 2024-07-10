@@ -3,7 +3,7 @@ package com.example.restogo
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.media.tv.TvContentRating
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,7 +17,6 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.restogo.model.ApiService
 import com.example.restogo.model.Order
-import com.example.restogo.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +29,8 @@ class AllOrderActivity : Activity(), View.OnClickListener {
     private lateinit var imgBack: ImageView
     private lateinit var tvRiwayat: TextView
     private lateinit var recycleView: RecyclerView
-    private lateinit var tvTidakTersedia: TextView
+    private lateinit var tvBerlangsung: TextView
+    private lateinit var tvHistory: TextView
     private lateinit var adapter: AllOrderAdapter
     private lateinit var requestQueue: com.android.volley.RequestQueue
     private val API_URL = Env.apiUrl
@@ -49,29 +49,48 @@ class AllOrderActivity : Activity(), View.OnClickListener {
         setContentView(R.layout.activity_all_order)
         initComponents()
 
-        recycleView.layoutManager = LinearLayoutManager(this)
+        fetchOrders()
 
-        updateUIRecycleView()
+        recycleView.layoutManager = LinearLayoutManager(this)
+        adapter = AllOrderAdapter(orders) { order ->
+            showUpdateDialog(order)
+        }
+        recycleView.adapter = adapter
+
+//        updateUIRecycleView()
 
         imgBack.setOnClickListener(this)
+        tvBerlangsung.setOnClickListener(this)
+        tvRiwayat.setOnClickListener(this)
     }
 
     override fun onResume() {
         super.onResume()
         fetchOrders()
-
+//        updateUIRecycleView()
     }
 
     private fun initComponents() {
         imgBack = findViewById(R.id.img_all_order_activity_back)
         tvRiwayat = findViewById(R.id.tv_all_order_riwayat)
         recycleView = findViewById(R.id.rv_all_order_activity)
-        tvTidakTersedia = findViewById(R.id.tv_all_order_status)
+        tvBerlangsung = findViewById(R.id.tv_all_order_berlangsung)
+        tvHistory = findViewById(R.id.tv_all_order_status)
         requestQueue = Volley.newRequestQueue(this)
     }
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.img_all_order_activity_back) {
+            finish()
+        }
+
+        if (v?.id == R.id.tv_all_order_berlangsung) {
+            updateUIRecycleView()
+        }
+
+        if (v?.id == R.id.tv_all_order_riwayat) {
+            val intent = Intent(this, AllOrderHistoryActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }
@@ -85,6 +104,10 @@ class AllOrderActivity : Activity(), View.OnClickListener {
                     orders.clear()
                     orders.addAll(response.data)
                     adapter.notifyDataSetChanged()
+
+                    if (response.data.isNotEmpty()) {
+                        tvHistory.visibility = View.GONE
+                    }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -100,10 +123,6 @@ class AllOrderActivity : Activity(), View.OnClickListener {
 
     private fun updateUIRecycleView() {
         fetchOrders()
-
-        if (orders.isNotEmpty()) {
-            tvTidakTersedia.visibility = View.GONE
-        }
 
         adapter = AllOrderAdapter(orders) { order ->
             showUpdateDialog(order)
@@ -121,12 +140,12 @@ class AllOrderActivity : Activity(), View.OnClickListener {
                 when (which) {
                     0 -> {
                         updateOrderStatus(order._id, true)
-//                        updateUIRecycleView()
+                        updateUIRecycleView()
                     }
 
                     1 -> {
                         updateOrderStatus(order._id, false)
-//                        updateUIRecycleView()
+                        updateUIRecycleView()
                     }
                 }
             }
