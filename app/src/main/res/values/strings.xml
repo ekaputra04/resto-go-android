@@ -114,4 +114,6 @@
     <string name="tidak_ada_riwayat_pesanan">Tidak Ada Riwayat Pesanan</string>
     <string name="pemesanan_berhasil">Pemesanan Berhasil</string>
     <string name="kembali">Kembali</string>
+    <string name="daftar_pengguna">Daftar Pengguna</string>
+    <string name="tambah_pengguna">Tambah Pengguna</string>
 </resources>

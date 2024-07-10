@@ -7,10 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.restogo.model.Menu
 
-class MenuAdapter(private val menuList: List<Menu>, private val onItemClick: (Menu) -> Unit) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
+class MenuAdapter(private val menuList: List<Menu>, private val onItemClick: (Menu) -> Unit) :
+    RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_edit_menus, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_edit_menus, parent, false)
         return MenuViewHolder(view)
     }
 
@@ -21,7 +23,8 @@ class MenuAdapter(private val menuList: List<Menu>, private val onItemClick: (Me
 
     override fun getItemCount() = menuList.size
 
-    inner class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         private val nameTextView: TextView = itemView.findViewById(R.id.tv_item_menu_name)
         private val priceTextView: TextView = itemView.findViewById(R.id.tv_item_menu_price)
 
