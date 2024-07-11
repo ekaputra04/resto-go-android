@@ -43,6 +43,8 @@ class ProfileActivity : Activity(), View.OnClickListener {
     private lateinit var tvExtraMenus: TextView
     private lateinit var tvDaftarUsers: TextView
     private lateinit var tvDaftarCoupons: TextView
+    private lateinit var tvDaftarOrders: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,18 +63,21 @@ class ProfileActivity : Activity(), View.OnClickListener {
             imgExtraMenusDetail.visibility = View.GONE
             imgUsersDetail.visibility = View.GONE
             imgCouponsDetail.visibility = View.GONE
+            imgAllOrdersDetail.visibility = View.GONE
 
             tvMenuCategories.visibility = View.GONE
             tvMenus.visibility = View.GONE
             tvExtraMenus.visibility = View.GONE
             tvDaftarUsers.visibility = View.GONE
             tvDaftarCoupons.visibility = View.GONE
+            tvDaftarOrders.visibility = View.GONE
 
             btnShowMenuCategories.visibility = View.GONE
             btnShowMenus.visibility = View.GONE
             btnShowExtraMenus.visibility = View.GONE
             btnShowUsers.visibility = View.GONE
             btnShowCoupons.visibility = View.GONE
+            btnShowAllOrders.visibility = View.GONE
         }
 
         btnBack.setOnClickListener(this)
@@ -126,6 +131,7 @@ class ProfileActivity : Activity(), View.OnClickListener {
         tvExtraMenus = findViewById(R.id.tv_profile_extra_menu)
         tvDaftarUsers = findViewById(R.id.tv_profile_daftar_pelanggan)
         tvDaftarCoupons = findViewById(R.id.tv_profile_daftar_kupon)
+        tvDaftarOrders = findViewById(R.id.tv_profile_daftar_pesanan)
     }
 
     override fun onClick(v: View?) {
